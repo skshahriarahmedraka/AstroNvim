@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
@@ -16,13 +16,13 @@ return {
       inlay_hints = false, -- enable/disable inlay hints on start
       semantic_tokens = true, -- enable/disable semantic token highlighting
     },
-    -- customize lsp formatting options
+    -- formatting options enhanced to trigger auto-imports
     formatting = {
       -- control auto formatting on save
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
+          "go",
         },
         ignore_filetypes = { -- disable format on save for specified filetypes
           -- "python",
@@ -33,9 +33,13 @@ return {
         -- "lua_ls",
       },
       timeout_ms = 1000, -- default format timeout
-      -- filter = function(client) -- fully override the default formatting function
-      --   return true
-      -- end
+      -- Custom filter to enable import organization on save for Go
+      filter = function(client)
+        if client.name == "gopls" then
+          return true
+        end
+        return true
+      end
     },
     -- enable servers that you already have installed without mason
     servers = {
@@ -45,6 +49,66 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      gopls = {
+        settings = {
+          gopls = {
+            -- Enable hover with detailed information
+            hoverKind = "FullDocumentation",
+            -- Include function signatures and documentation
+            linkSupport = true,
+            -- Show function implementations
+            linksInHover = true,
+            -- Enhanced completion
+            usePlaceholders = true,
+            -- Static analysis
+            staticcheck = true,
+            -- Auto-import settings
+            gofumpt = true,
+            -- Organize imports automatically
+            ["formatting.gofumpt"] = true,
+            -- Import organization
+            ["import.group"] = true,
+            ["import.prefix"] = "local",
+            -- Code actions for imports
+            ["ui.completion.usePlaceholders"] = true,
+            ["ui.diagnostic.analyses"] = {
+              fieldalignment = true,
+              nilness = true,
+              unusedparams = true,
+              unusedwrite = true,
+              useany = true,
+            },
+            -- Code lens for references, implementations, etc.
+            codelenses = {
+              gc_details = true,
+              generate = true,
+              regenerate_cgo = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+          },
+        },
+        -- Enable code actions including auto-import
+        capabilities = {
+          textDocument = {
+            codeAction = {
+              dynamicRegistration = true,
+              isPreferredSupport = true,
+              codeActionLiteralSupport = {
+                codeActionKind = {
+                  valueSet = (function()
+                    local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
+                    table.sort(res)
+                    return res
+                  end)(),
+                },
+              },
+            },
+          },
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {
@@ -76,6 +140,28 @@ return {
           end,
         },
       },
+      -- Enhanced auto-import and organize imports on save for Go
+      lsp_auto_import = {
+        cond = function(client, bufnr)
+          return client.name == "gopls" and vim.bo[bufnr].filetype == "go"
+        end,
+        {
+          event = "BufWritePre",
+          desc = "Auto organize imports on save for Go",
+          callback = function(args)
+            local params = vim.lsp.util.make_range_params()
+            params.context = { only = { "source.organizeImports" } }
+            local result = vim.lsp.buf_request_sync(args.buf, "textDocument/codeAction", params, 1000)
+            for _, res in pairs(result or {}) do
+              for _, action in pairs(res.result or {}) do
+                if action.edit then
+                  vim.lsp.util.apply_workspace_edit(action.edit, "utf-8")
+                end
+              end
+            end
+          end,
+        },
+      },
     },
     -- mappings to be set up on attaching of a language server
     mappings = {
@@ -86,6 +172,62 @@ return {
           desc = "Declaration of current symbol",
           cond = "textDocument/declaration",
         },
+        -- Enhanced hover mapping
+        K = {
+          function() 
+            vim.lsp.buf.hover()
+          end,
+          desc = "Hover symbol details",
+          cond = "textDocument/hover",
+        },
+        -- Code actions for auto-import and organize imports
+        ["<Leader>ca"] = {
+          function() vim.lsp.buf.code_action() end,
+          desc = "Code actions (including auto-import)",
+          cond = "textDocument/codeAction",
+        },
+        -- Quick fix for adding imports
+        ["<Leader>cA"] = {
+          function()
+            vim.lsp.buf.code_action({
+              filter = function(action)
+                return action.kind == "source.organizeImports"
+              end,
+              apply = true,
+            })
+          end,
+          desc = "Organize imports",
+          cond = "textDocument/codeAction",
+        },
+        -- Manual import organization
+        ["<Leader>ci"] = {
+          function()
+            local params = vim.lsp.util.make_range_params()
+            params.context = { only = { "source.organizeImports" } }
+            local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 1000)
+            for _, res in pairs(result or {}) do
+              for _, action in pairs(res.result or {}) do
+                if action.edit then
+                  vim.lsp.util.apply_workspace_edit(action.edit, "utf-8")
+                end
+              end
+            end
+          end,
+          desc = "Organize imports manually",
+          cond = "textDocument/codeAction",
+        },
+        -- Go to implementation
+        gI = {
+          function() vim.lsp.buf.implementation() end,
+          desc = "Go to implementation",
+          cond = "textDocument/implementation",
+        },
+        -- Show signature help
+        ["<C-k>"] = {
+          function() vim.lsp.buf.signature_help() end,
+          desc = "Signature help",
+          cond = "textDocument/signatureHelp",
+        },
         ["<Leader>uY"] = {
           function() require("astrolsp.toggles").buffer_semantic_tokens() end,
           desc = "Toggle LSP semantic highlight (buffer)",
@@ -94,12 +236,40 @@ return {
           end,
         },
       },
+      i = {
+        -- Signature help in insert mode
+        ["<C-k>"] = {
+          function() vim.lsp.buf.signature_help() end,
+          desc = "Signature help",
+          cond = "textDocument/signatureHelp",
+        },
+      },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function
     -- takes two parameters `client` and `bufnr`  (`:h lspconfig-setup`)
     on_attach = function(client, bufnr)
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
+      
+      -- Enhanced hover configuration for Go
+      if client.name == "gopls" then
+        -- Configure hover options
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+          vim.lsp.handlers.hover, {
+            border = "rounded",
+            max_width = 80,
+            max_height = 20,
+          }
+        )
+        
+        -- Configure signature help
+        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+          vim.lsp.handlers.signature_help, {
+            border = "rounded",
+            close_events = { "CursorMoved", "BufHidden", "InsertCharPre" },
+          }
+        )
+      end
     end,
   },
 }
