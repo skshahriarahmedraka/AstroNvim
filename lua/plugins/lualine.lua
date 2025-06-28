@@ -1,11 +1,4 @@
 return {
-  -- Disable AstroVim's default statusline
-  {
-    "rebelot/heirline.nvim",
-    enabled = false,
-  },
-  -- Add Lualine with NvChad-style configuration
-  {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   opts = {
@@ -109,5 +102,4 @@ return {
     },
     extensions = { "neo-tree", "lazy", "toggleterm", "mason" },
   },
-}
 }
