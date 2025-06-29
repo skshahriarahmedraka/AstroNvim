@@ -24,12 +24,13 @@ You can also just clone this repository directly if you do not want to track you
 #### Clone the repository
 
 ```shell
-git clone git@github.com:skshahriarahmedraka/AstroNvim.git ~/.config/nvim
+  git clone git@github.com:skshahriarahmedraka/AstroNvim.git ~/.config/nvim
 ```
+
 or if you want to use HTTPS:
 
 ```shell
-git clone https://github.com/skshahriarahmedraka/AstroNvim.git ~/.config/nvim
+  git clone https://github.com/skshahriarahmedraka/AstroNvim.git ~/.config/nvim
 ```
 
 #### Start Neovim
@@ -37,3 +38,10 @@ git clone https://github.com/skshahriarahmedraka/AstroNvim.git ~/.config/nvim
 ```shell
 nvim
 ```
+#### catppuccin theme 
+
+run command in nvim to set the theme
+```
+colorscheme catppuccin " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+```
+
