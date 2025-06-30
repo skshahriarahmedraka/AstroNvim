@@ -8,11 +8,12 @@
 return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.pack.go" },
   -- import/override with your plugins folder
   -- { import = "astrocommunity.colorscheme.catppuccin" },
-  -- { import = "astrocommunity.completion.copilot-lua" },  
+  -- { import = "astrocommunity.completion.copilot-lua" },
   -- example of importing an entire language pack
   -- these packs can set up things such as Treesitter, Language Servers, additional language specific plugins, and more!
   { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.python" }, 
-} 
+  { import = "astrocommunity.pack.python" },
+}
