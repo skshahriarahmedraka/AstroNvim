@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- Customize Treesitter
 
@@ -8,7 +8,7 @@ return {
   opts = {
     ensure_installed = {
       "lua",
-      "vim",
+      "vim","go", "gomod", "gowork", "gosum"
       -- add more arguments for adding more treesitter parsers
     },
   },
