@@ -20,7 +20,8 @@ return {
       format_on_save = {
         enabled = true, -- enable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
-          "go",
+          -- Add filetypes you want to auto-format
+          -- "go",
           "lua",
           "python",
           "javascript",

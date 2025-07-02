@@ -21,9 +21,9 @@ return {
   -- example of importing an entire language pack
   -- these packs can set up things such as Treesitter, Language Servers, additional language specific plugins, and more!
   { import = "astrocommunity.pack.rust" },
-  { import = "astrocommunity.pack.python" },
+  -- { import = "astrocommunity.pack.python" },
   --
-  { import = "astrocommunity.pack.xml" },
+  -- { import = "astrocommunity.pack.xml" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.toml" },
@@ -34,8 +34,8 @@ return {
   { import = "astrocommunity.pack.markdown" },
   -- { import = "astrocommunity.pack.nginx" },
   { import = "astrocommunity.pack.proto" },
-  { import = "astrocommunity.pack.python" },
-  { import = "astrocommunity.pack.sql" },
+  -- { import = "astrocommunity.pack.python" },
+  -- { import = "astrocommunity.pack.sql" },
   { import = "astrocommunity.pack.templ" },
   { import = "astrocommunity.recipes.vscode-icons" },
 }
