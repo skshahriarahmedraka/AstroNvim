@@ -12,7 +12,7 @@ return {
   { import = "astrocommunity.pack.cmake" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.go" },
-  { import = "astrocommunity.pack.golangci-lint" },
+  -- { import = "astrocommunity.pack.golangci-lint" },
   { import = "astrocommunity.pack.zig" },
   { import = "astrocommunity.pack.svelte" },
   -- import/override with your plugins folder
