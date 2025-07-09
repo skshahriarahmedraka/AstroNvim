@@ -12,7 +12,7 @@ return {
   { import = "astrocommunity.pack.cmake" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.go" },
-  -- { import = "astrocommunity.pack.golangci-lint" },
+  { import = "astrocommunity.pack.golangci-lint" },
   { import = "astrocommunity.pack.zig" },
   { import = "astrocommunity.pack.svelte" },
   -- import/override with your plugins folder
@@ -22,7 +22,7 @@ return {
   -- these packs can set up things such as Treesitter, Language Servers, additional language specific plugins, and more!
   { import = "astrocommunity.pack.rust" },
   -- { import = "astrocommunity.pack.python" },
-  --
+
   -- { import = "astrocommunity.pack.xml" },
   { import = "astrocommunity.pack.typescript" },
   { import = "astrocommunity.pack.terraform" },

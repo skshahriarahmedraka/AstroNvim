@@ -21,7 +21,7 @@ return {
         enabled = true, -- enable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
           -- Add filetypes you want to auto-format
-          "go",
+          -- "go",
           "lua",
           "python",
           "javascript",
@@ -77,9 +77,13 @@ return {
     servers = {
       -- "pyright"
     },
+
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
+      gopls = {
+        debounce_text_changes = 150,
+      },
       -- Add your language server configurations here
     },
     -- customize how language servers are attached
@@ -100,6 +104,7 @@ return {
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {
+
       -- Codelens refresh
       lsp_codelens_refresh = {
         cond = "textDocument/codeLens",

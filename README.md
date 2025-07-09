@@ -45,3 +45,5 @@ run command in nvim to set the theme
 colorscheme catppuccin " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
 ```
 
+
+

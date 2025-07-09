@@ -1,6 +1,6 @@
 -- METHOD 1: Complete Copilot Chat Setup with Agent Mode
 -- Add to ~/.config/nvim/lua/user/plugins/copilot-chat.lua
-
+return {}
 -- return {
 --   {
 --     "CopilotC-Nvim/CopilotChat.nvim",
