@@ -21,7 +21,7 @@ return {
         enabled = true, -- enable format on save globally
         allow_filetypes = { -- enable format on save for specified filetypes only
           -- Add filetypes you want to auto-format
-          -- "go",
+          "go",
           "lua",
           "python",
           "javascript",
@@ -83,8 +83,27 @@ return {
     config = {
       gopls = {
         debounce_text_changes = 150,
+        settings = {
+          gopls = {
+            -- Disable gofumpt to use goimports instead
+            gofumpt = true,
+            analyses = {
+              unusedparams = true,
+              shadow = true,
+            },
+            staticcheck = true,
+            -- Configure to use goimports for formatting
+            ["formatting.goimports"] = true,
+            -- Set local import prefix if needed (optional)
+            ["formatting.local"] = "",
+            -- Disable automatic line wrapping by not using gofumpt
+            ["ui.completion.usePlaceholders"] = false,
+            -- Additional settings to prevent aggressive formatting
+            ["ui.diagnostic.staticcheck"] = true,
+            ["ui.completion.completionBudget"] = "100ms",
+          },
+        },
       },
-      -- Add your language server configurations here
     },
     -- customize how language servers are attached
     handlers = {
