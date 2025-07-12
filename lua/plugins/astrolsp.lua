@@ -82,7 +82,8 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       gopls = {
-        debounce_text_changes = 150,
+        -- Reduced debounce for faster diagnostics
+        debounce_text_changes = 50,
         settings = {
           gopls = {
             -- Disable gofumpt to use goimports instead
@@ -101,7 +102,19 @@ return {
             -- Additional settings to prevent aggressive formatting
             ["ui.diagnostic.staticcheck"] = true,
             ["ui.completion.completionBudget"] = "100ms",
+            -- Enable real-time diagnostics
+            ["ui.diagnostic.annotations"] = {
+              bounds = true,
+              escape = true,
+              inline = true,
+            },
+            -- Faster diagnostics delivery
+            ["ui.diagnostic.delay"] = "50ms",
           },
+        },
+        -- Enable real-time diagnostics
+        flags = {
+          debounce_text_changes = 50,
         },
       },
     },
@@ -123,7 +136,37 @@ return {
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {
-
+      -- Real-time diagnostics for Go files
+      lsp_diagnostics_hold = {
+        cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
+        {
+          event = { "CursorHold", "CursorHoldI" },
+          desc = "Request diagnostics on cursor hold",
+          callback = function(args) vim.diagnostic.show(nil, args.buf) end,
+        },
+      },
+      -- Text change diagnostics for Go
+      lsp_diagnostics_change = {
+        cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
+        {
+          event = { "TextChanged", "TextChangedI" },
+          desc = "Request diagnostics on text change",
+          callback = function(args)
+            -- Debounce diagnostics requests
+            local timer = vim.loop.new_timer()
+            if timer then
+              timer:start(
+                100,
+                0,
+                vim.schedule_wrap(function()
+                  if vim.api.nvim_buf_is_valid(args.buf) then vim.diagnostic.show(nil, args.buf) end
+                  timer:close()
+                end)
+              )
+            end
+          end,
+        },
+      },
       -- Codelens refresh
       lsp_codelens_refresh = {
         cond = "textDocument/codeLens",
@@ -260,7 +303,7 @@ return {
     },
     -- Enhanced on_attach function
     on_attach = function(client, bufnr)
-      -- Configure diagnostic display
+      -- Configure diagnostic display with real-time updates
       vim.diagnostic.config({
         virtual_text = {
           severity = { min = vim.diagnostic.severity.HINT },
@@ -303,6 +346,36 @@ return {
           group = highlight_augroup,
           buffer = bufnr,
           callback = vim.lsp.buf.clear_references,
+        })
+      end
+
+      -- Special configuration for Go files
+      if client.name == "gopls" and vim.bo[bufnr].filetype == "go" then
+        -- Set faster update times for Go files
+        vim.opt_local.updatetime = 100
+
+        -- Enable real-time diagnostics
+        vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+          buffer = bufnr,
+          group = vim.api.nvim_create_augroup("gopls_diagnostics_" .. bufnr, { clear = true }),
+          callback = function()
+            -- Debounced diagnostic update
+            local timer = vim.loop.new_timer()
+            if timer then
+              timer:start(
+                150,
+                0,
+                vim.schedule_wrap(function()
+                  if vim.api.nvim_buf_is_valid(bufnr) then
+                    -- Force diagnostic refresh
+                    vim.lsp.buf.document_highlight()
+                    vim.diagnostic.show(nil, bufnr)
+                  end
+                  timer:close()
+                end)
+              )
+            end
+          end,
         })
       end
     end,
