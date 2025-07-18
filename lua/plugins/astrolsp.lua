@@ -82,7 +82,7 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       gopls = {
-        -- Reduced debounce for faster diagnostics
+        -- Faster debounce for immediate diagnostics
         debounce_text_changes = 50,
         settings = {
           gopls = {
@@ -110,6 +110,8 @@ return {
             },
             -- Faster diagnostics delivery
             ["ui.diagnostic.delay"] = "50ms",
+            -- Enable diagnostic on change
+            ["ui.diagnostic.diagnosticsDelay"] = "50ms",
           },
         },
         -- Enable real-time diagnostics
@@ -133,37 +135,80 @@ return {
         focusable = false,
         close_events = { "CursorMoved", "BufHidden", "InsertCharPre" },
       }),
+      -- Enhanced diagnostic handler for immediate updates
+      ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = true,
+        virtual_text = {
+          severity = { min = vim.diagnostic.severity.HINT },
+          source = "if_many",
+          prefix = "●",
+          spacing = 2,
+        },
+        signs = true,
+        update_in_insert = true,
+        severity_sort = true,
+      }),
     },
     -- Configure buffer local auto commands to add when attaching a language server
     autocmds = {
-      -- Real-time diagnostics for Go files
+      -- Enhanced real-time diagnostics for Go files
+      lsp_diagnostics_go = {
+        cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
+        {
+          event = { "TextChanged", "TextChangedI", "TextChangedP" },
+          desc = "Real-time diagnostics for Go on text change",
+          callback = function(args)
+            -- Immediate diagnostic update without debounce for faster feedback
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(args.buf) then
+                -- Force LSP to send diagnostics
+                local clients = vim.lsp.get_clients({ bufnr = args.buf, name = "gopls" })
+                for _, client in pairs(clients) do
+                  if client.supports_method("textDocument/diagnostic") then
+                    vim.lsp.buf.document_diagnostic({ bufnr = args.buf })
+                  end
+                end
+                -- Show existing diagnostics immediately
+                vim.diagnostic.show(nil, args.buf)
+              end
+            end)
+          end,
+        },
+      },
+      -- Diagnostics on save for Go files
+      lsp_diagnostics_save = {
+        cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
+        {
+          event = { "BufWritePost" },
+          desc = "Refresh diagnostics on save",
+          callback = function(args)
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(args.buf) then
+                -- Force diagnostic refresh on save
+                local clients = vim.lsp.get_clients({ bufnr = args.buf, name = "gopls" })
+                for _, client in pairs(clients) do
+                  if client.supports_method("textDocument/diagnostic") then
+                    vim.lsp.buf.document_diagnostic({ bufnr = args.buf })
+                  end
+                end
+                vim.diagnostic.show(nil, args.buf)
+              end
+            end)
+          end,
+        },
+      },
+      -- Cursor hold diagnostics for Go files
       lsp_diagnostics_hold = {
         cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
         {
           event = { "CursorHold", "CursorHoldI" },
           desc = "Request diagnostics on cursor hold",
-          callback = function(args) vim.diagnostic.show(nil, args.buf) end,
-        },
-      },
-      -- Text change diagnostics for Go
-      lsp_diagnostics_change = {
-        cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
-        {
-          event = { "TextChanged", "TextChangedI" },
-          desc = "Request diagnostics on text change",
-          callback = function(args)
-            -- Debounce diagnostics requests
-            local timer = vim.loop.new_timer()
-            if timer then
-              timer:start(
-                100,
-                0,
-                vim.schedule_wrap(function()
-                  if vim.api.nvim_buf_is_valid(args.buf) then vim.diagnostic.show(nil, args.buf) end
-                  timer:close()
-                end)
-              )
-            end
+          callback = function(args) 
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(args.buf) then
+                vim.diagnostic.show(nil, args.buf)
+              end
+            end)
           end,
         },
       },
@@ -269,6 +314,20 @@ return {
         ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
         ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
         ["<Leader>cq"] = { function() vim.diagnostic.setqflist() end, desc = "Diagnostics quickfix" },
+        -- Manual diagnostic refresh for Go files
+        ["<Leader>cr"] = {
+          function()
+            local clients = vim.lsp.get_clients({ bufnr = 0, name = "gopls" })
+            for _, client in pairs(clients) do
+              if client.supports_method("textDocument/diagnostic") then
+                vim.lsp.buf.document_diagnostic({ bufnr = 0 })
+              end
+            end
+            vim.diagnostic.show(nil, 0)
+          end,
+          desc = "Refresh diagnostics",
+          cond = function(client, bufnr) return client.name == "gopls" and vim.bo[bufnr].filetype == "go" end,
+        },
 
         --  Toggle features
         ["<Leader>uY"] = {
@@ -309,6 +368,7 @@ return {
           severity = { min = vim.diagnostic.severity.HINT },
           source = "if_many",
           prefix = "●",
+          spacing = 2,
         },
         signs = true,
         underline = true,
@@ -351,30 +411,63 @@ return {
 
       -- Special configuration for Go files
       if client.name == "gopls" and vim.bo[bufnr].filetype == "go" then
-        -- Set faster update times for Go files
-        vim.opt_local.updatetime = 100
+        -- Set very fast update times for Go files
+        vim.opt_local.updatetime = 50
+        
+        -- Configure diagnostic settings specifically for this buffer
+        vim.diagnostic.config({
+          virtual_text = {
+            severity = { min = vim.diagnostic.severity.HINT },
+            source = "if_many",
+            prefix = "●",
+            spacing = 2,
+          },
+          signs = true,
+          underline = true,
+          update_in_insert = true,
+          severity_sort = true,
+        }, bufnr)
 
-        -- Enable real-time diagnostics
-        vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+        -- Create a more aggressive diagnostic update system
+        local diagnostics_group = vim.api.nvim_create_augroup("gopls_realtime_diagnostics_" .. bufnr, { clear = true })
+       
+
+        -- Immediate diagnostic updates on text changes
+        vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP" }, {
           buffer = bufnr,
-          group = vim.api.nvim_create_augroup("gopls_diagnostics_" .. bufnr, { clear = true }),
+          group = diagnostics_group,
           callback = function()
-            -- Debounced diagnostic update
-            local timer = vim.loop.new_timer()
-            if timer then
-              timer:start(
-                150,
-                0,
-                vim.schedule_wrap(function()
-                  if vim.api.nvim_buf_is_valid(bufnr) then
-                    -- Force diagnostic refresh
-                    vim.lsp.buf.document_highlight()
-                    vim.diagnostic.show(nil, bufnr)
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(bufnr) then
+                -- Force diagnostic refresh
+                local gopls_clients = vim.lsp.get_clients({ bufnr = bufnr, name = "gopls" })
+                for _, gopls_client in pairs(gopls_clients) do
+                  if gopls_client.supports_method("textDocument/diagnostic") then
+                    vim.lsp.buf.document_diagnostic({ bufnr = bufnr })
                   end
-                  timer:close()
-                end)
-              )
-            end
+                end
+                vim.diagnostic.show(nil, bufnr)
+              end
+            end)
+          end,
+        })
+
+        -- Diagnostic updates on save
+        vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+          buffer = bufnr,
+          group = diagnostics_group,
+          callback = function()
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(bufnr) then
+                local gopls_clients = vim.lsp.get_clients({ bufnr = bufnr, name = "gopls" })
+                for _, gopls_client in pairs(gopls_clients) do
+                  if gopls_client.supports_method("textDocument/diagnostic") then
+                    vim.lsp.buf.document_diagnostic({ bufnr = bufnr })
+                  end
+                end
+                vim.diagnostic.show(nil, bufnr)
+              end
+            end)
           end,
         })
       end
