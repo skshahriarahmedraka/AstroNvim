@@ -82,39 +82,49 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       gopls = {
-        -- Faster debounce for immediate diagnostics
-        debounce_text_changes = 50,
         settings = {
           gopls = {
-            -- Disable gofumpt to use goimports instead
+            -- Core analysis settings
             gofumpt = true,
             analyses = {
               unusedparams = true,
               shadow = true,
+              ST1000 = false, -- ignore package comment requirement
+              ST1003 = false, -- ignore underscore in package names
+              ST1020 = false, -- ignore method comment format
             },
             staticcheck = true,
-            -- Configure to use goimports for formatting
-            ["formatting.goimports"] = true,
-            -- Set local import prefix if needed (optional)
-            ["formatting.local"] = "",
-            -- Disable automatic line wrapping by not using gofumpt
-            ["ui.completion.usePlaceholders"] = false,
-            -- Additional settings to prevent aggressive formatting
-            ["ui.diagnostic.staticcheck"] = true,
-            ["ui.completion.completionBudget"] = "100ms",
-            -- Enable real-time diagnostics
-            ["ui.diagnostic.annotations"] = {
-              bounds = true,
-              escape = true,
-              inline = true,
+
+            -- Completion settings
+            usePlaceholders = false,
+            completionBudget = "100ms",
+
+            -- Diagnostic settings - use correct paths
+            diagnosticsDelay = "50ms",
+
+            -- Formatting settings
+            ["local"] = "", -- local import prefix
+
+            -- Code lens and hints
+            codelenses = {
+              gc_details = true,
+              generate = true,
+              regenerate_cgo = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
             },
-            -- Faster diagnostics delivery
-            ["ui.diagnostic.delay"] = "50ms",
-            -- Enable diagnostic on change
-            ["ui.diagnostic.diagnosticsDelay"] = "50ms",
+
+            -- Hover and documentation
+            hoverKind = "FullDocumentation",
+            linkTarget = "pkg.go.dev",
+            linksInHover = true,
+
+            -- Experimental features
+            experimentalPostfixCompletions = true,
           },
         },
-        -- Enable real-time diagnostics
+        -- Enable real-time diagnostics with proper debounce
         flags = {
           debounce_text_changes = 50,
         },
@@ -162,10 +172,10 @@ return {
             vim.schedule(function()
               if vim.api.nvim_buf_is_valid(args.buf) then
                 -- Force LSP to send diagnostics
-                local clients = vim.lsp.get_clients({ bufnr = args.buf, name = "gopls" })
+                local clients = vim.lsp.get_clients { bufnr = args.buf, name = "gopls" }
                 for _, client in pairs(clients) do
-                  if client.supports_method("textDocument/diagnostic") then
-                    vim.lsp.buf.document_diagnostic({ bufnr = args.buf })
+                  if client.supports_method "textDocument/diagnostic" then
+                    vim.lsp.buf.document_diagnostic { bufnr = args.buf }
                   end
                 end
                 -- Show existing diagnostics immediately
@@ -185,10 +195,10 @@ return {
             vim.schedule(function()
               if vim.api.nvim_buf_is_valid(args.buf) then
                 -- Force diagnostic refresh on save
-                local clients = vim.lsp.get_clients({ bufnr = args.buf, name = "gopls" })
+                local clients = vim.lsp.get_clients { bufnr = args.buf, name = "gopls" }
                 for _, client in pairs(clients) do
-                  if client.supports_method("textDocument/diagnostic") then
-                    vim.lsp.buf.document_diagnostic({ bufnr = args.buf })
+                  if client.supports_method "textDocument/diagnostic" then
+                    vim.lsp.buf.document_diagnostic { bufnr = args.buf }
                   end
                 end
                 vim.diagnostic.show(nil, args.buf)
@@ -203,11 +213,9 @@ return {
         {
           event = { "CursorHold", "CursorHoldI" },
           desc = "Request diagnostics on cursor hold",
-          callback = function(args) 
+          callback = function(args)
             vim.schedule(function()
-              if vim.api.nvim_buf_is_valid(args.buf) then
-                vim.diagnostic.show(nil, args.buf)
-              end
+              if vim.api.nvim_buf_is_valid(args.buf) then vim.diagnostic.show(nil, args.buf) end
             end)
           end,
         },
@@ -317,11 +325,9 @@ return {
         -- Manual diagnostic refresh for Go files
         ["<Leader>cr"] = {
           function()
-            local clients = vim.lsp.get_clients({ bufnr = 0, name = "gopls" })
+            local clients = vim.lsp.get_clients { bufnr = 0, name = "gopls" }
             for _, client in pairs(clients) do
-              if client.supports_method("textDocument/diagnostic") then
-                vim.lsp.buf.document_diagnostic({ bufnr = 0 })
-              end
+              if client.supports_method "textDocument/diagnostic" then vim.lsp.buf.document_diagnostic { bufnr = 0 } end
             end
             vim.diagnostic.show(nil, 0)
           end,
@@ -413,7 +419,7 @@ return {
       if client.name == "gopls" and vim.bo[bufnr].filetype == "go" then
         -- Set very fast update times for Go files
         vim.opt_local.updatetime = 50
-        
+
         -- Configure diagnostic settings specifically for this buffer
         vim.diagnostic.config({
           virtual_text = {
@@ -430,7 +436,6 @@ return {
 
         -- Create a more aggressive diagnostic update system
         local diagnostics_group = vim.api.nvim_create_augroup("gopls_realtime_diagnostics_" .. bufnr, { clear = true })
-       
 
         -- Immediate diagnostic updates on text changes
         vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP" }, {
@@ -440,10 +445,10 @@ return {
             vim.schedule(function()
               if vim.api.nvim_buf_is_valid(bufnr) then
                 -- Force diagnostic refresh
-                local gopls_clients = vim.lsp.get_clients({ bufnr = bufnr, name = "gopls" })
+                local gopls_clients = vim.lsp.get_clients { bufnr = bufnr, name = "gopls" }
                 for _, gopls_client in pairs(gopls_clients) do
-                  if gopls_client.supports_method("textDocument/diagnostic") then
-                    vim.lsp.buf.document_diagnostic({ bufnr = bufnr })
+                  if gopls_client.supports_method "textDocument/diagnostic" then
+                    vim.lsp.buf.document_diagnostic { bufnr = bufnr }
                   end
                 end
                 vim.diagnostic.show(nil, bufnr)
@@ -459,10 +464,10 @@ return {
           callback = function()
             vim.schedule(function()
               if vim.api.nvim_buf_is_valid(bufnr) then
-                local gopls_clients = vim.lsp.get_clients({ bufnr = bufnr, name = "gopls" })
+                local gopls_clients = vim.lsp.get_clients { bufnr = bufnr, name = "gopls" }
                 for _, gopls_client in pairs(gopls_clients) do
-                  if gopls_client.supports_method("textDocument/diagnostic") then
-                    vim.lsp.buf.document_diagnostic({ bufnr = bufnr })
+                  if gopls_client.supports_method "textDocument/diagnostic" then
+                    vim.lsp.buf.document_diagnostic { bufnr = bufnr }
                   end
                 end
                 vim.diagnostic.show(nil, bufnr)
