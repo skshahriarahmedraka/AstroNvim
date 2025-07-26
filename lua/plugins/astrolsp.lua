@@ -1,8 +1,8 @@
+-- ~/.config/nvim/lua/plugins/astrolsp.lua (or similar path)
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
-
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -77,7 +77,6 @@ return {
     servers = {
       -- "pyright"
     },
-
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
@@ -94,17 +93,13 @@ return {
               ST1020 = false, -- ignore method comment format
             },
             staticcheck = true,
-
             -- Completion settings
             usePlaceholders = false,
             completionBudget = "100ms",
-
             -- Diagnostic settings - use correct paths
-            diagnosticsDelay = "50ms",
-
+            diagnosticsDelay = "50ms", -- Lower delay for faster diagnostics
             -- Formatting settings
             ["local"] = "", -- local import prefix
-
             -- Code lens and hints
             codelenses = {
               gc_details = true,
@@ -114,19 +109,17 @@ return {
               upgrade_dependency = true,
               vendor = true,
             },
-
             -- Hover and documentation
             hoverKind = "FullDocumentation",
             linkTarget = "pkg.go.dev",
             linksInHover = true,
-
             -- Experimental features
             experimentalPostfixCompletions = true,
           },
         },
         -- Enable real-time diagnostics with proper debounce
         flags = {
-          debounce_text_changes = 50,
+          debounce_text_changes = 50, -- Lower debounce for faster updates
         },
       },
     },
@@ -146,6 +139,7 @@ return {
         close_events = { "CursorMoved", "BufHidden", "InsertCharPre" },
       }),
       -- Enhanced diagnostic handler for immediate updates
+      -- This handler sets the *defaults* for diagnostics, but can be overridden per buffer in on_attach
       ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         underline = true,
         virtual_text = {
@@ -155,11 +149,12 @@ return {
           spacing = 2,
         },
         signs = true,
-        update_in_insert = true,
+        update_in_insert = true, -- Key part: Show diagnostics in insert mode by default
         severity_sort = true,
       }),
     },
     -- Configure buffer local auto commands to add when attaching a language server
+    -- REMOVED CUSTOM AUTOCMDS HERE TO AVOID CONFLICTS. Handled in on_attach and polish.lua
     autocmds = {
       -- Enhanced real-time diagnostics for Go files
       lsp_diagnostics_go = {
@@ -368,7 +363,8 @@ return {
     },
     -- Enhanced on_attach function
     on_attach = function(client, bufnr)
-      -- Configure diagnostic display with real-time updates
+      -- Apply the global diagnostic config specifically to this buffer
+      -- This reinforces the settings, especially update_in_insert
       vim.diagnostic.config({
         virtual_text = {
           severity = { min = vim.diagnostic.severity.HINT },
@@ -378,18 +374,21 @@ return {
         },
         signs = true,
         underline = true,
-        update_in_insert = true, -- Show diagnostics in insert mode
+        update_in_insert = true, -- Explicitly set for this buffer
         severity_sort = true,
         float = {
           border = "rounded",
           source = "always",
           header = "",
           prefix = "",
+          focusable = false,
         },
-      }, bufnr)
+      }, bufnr) -- Apply config specifically to this buffer (bufnr)
 
       -- Enable inlay hints if supported
-      if client.supports_method "textDocument/inlayHint" then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
+      if client.supports_method "textDocument/inlayHint" then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
 
       -- Set up enhanced completion
       vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -417,64 +416,25 @@ return {
 
       -- Special configuration for Go files
       if client.name == "gopls" and vim.bo[bufnr].filetype == "go" then
-        -- Set very fast update times for Go files
-        vim.opt_local.updatetime = 50
+        -- Set very fast update times for Go files to trigger CursorHold* events faster
+        vim.opt_local.updatetime = 100 -- Lower than default 500ms, adjust if needed (e.g., 250)
 
-        -- Configure diagnostic settings specifically for this buffer
-        vim.diagnostic.config({
-          virtual_text = {
-            severity = { min = vim.diagnostic.severity.HINT },
-            source = "if_many",
-            prefix = "●",
-            spacing = 2,
-          },
-          signs = true,
-          underline = true,
-          update_in_insert = true,
-          severity_sort = true,
-        }, bufnr)
-
-        -- Create a more aggressive diagnostic update system
-        local diagnostics_group = vim.api.nvim_create_augroup("gopls_realtime_diagnostics_" .. bufnr, { clear = true })
-
-        -- Immediate diagnostic updates on text changes
-        vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI", "TextChangedP" }, {
-          buffer = bufnr,
-          group = diagnostics_group,
-          callback = function()
-            vim.schedule(function()
-              if vim.api.nvim_buf_is_valid(bufnr) then
-                -- Force diagnostic refresh
-                local gopls_clients = vim.lsp.get_clients { bufnr = bufnr, name = "gopls" }
-                for _, gopls_client in pairs(gopls_clients) do
-                  if gopls_client.supports_method "textDocument/diagnostic" then
-                    vim.lsp.buf.document_diagnostic { bufnr = bufnr }
-                  end
-                end
-                vim.diagnostic.show(nil, bufnr)
-              end
-            end)
-          end,
-        })
-
-        -- Diagnostic updates on save
-        vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-          buffer = bufnr,
-          group = diagnostics_group,
-          callback = function()
-            vim.schedule(function()
-              if vim.api.nvim_buf_is_valid(bufnr) then
-                local gopls_clients = vim.lsp.get_clients { bufnr = bufnr, name = "gopls" }
-                for _, gopls_client in pairs(gopls_clients) do
-                  if gopls_client.supports_method "textDocument/diagnostic" then
-                    vim.lsp.buf.document_diagnostic { bufnr = bufnr }
-                  end
-                end
-                vim.diagnostic.show(nil, bufnr)
-              end
-            end)
-          end,
-        })
+        -- Optional: Create a more aggressive diagnostic update system if needed beyond gopls' built-in push
+        -- But often, gopls pushing diagnostics combined with update_in_insert=true is sufficient.
+        -- If you still need it, ensure it doesn't conflict:
+        -- local diagnostics_group = vim.api.nvim_create_augroup("gopls_realtime_diagnostics_" .. bufnr, { clear = true })
+        -- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+        --   buffer = bufnr,
+        --   group = diagnostics_group,
+        --   callback = function()
+        --     vim.schedule(function()
+        --       if vim.api.nvim_buf_is_valid(bufnr) then
+        --         vim.diagnostic.show(nil, bufnr)
+        --         -- vim.cmd("redraw") -- Might be needed in extreme cases, test without first
+        --       end
+        --     end)
+        --   end,
+        -- })
       end
     end,
   },
