@@ -245,6 +245,12 @@ return {
     -- Enhanced mappings
     mappings = {
       n = {
+        -- Make 'dd' delete without yanking (to black hole register)
+        ["dd"] = { '"_dd', desc = "Delete line (no yank)" },
+
+        -- Make '_dd' delete and yank (like original dd)
+        ["_dd"] = { "dd", desc = "Delete line and yank" },
+
         -- Navigation
         gD = {
           function() vim.lsp.buf.declaration() end,
@@ -386,9 +392,7 @@ return {
       }, bufnr) -- Apply config specifically to this buffer (bufnr)
 
       -- Enable inlay hints if supported
-      if client.supports_method "textDocument/inlayHint" then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-      end
+      if client.supports_method "textDocument/inlayHint" then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
 
       -- Set up enhanced completion
       vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
