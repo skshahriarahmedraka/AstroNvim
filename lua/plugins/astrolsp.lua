@@ -371,7 +371,7 @@ return {
     on_attach = function(client, bufnr)
       -- Apply the global diagnostic config specifically to this buffer
       -- This reinforces the settings, especially update_in_insert
-      vim.diagnostic.config({
+      vim.diagnostic.config {
         virtual_text = {
           severity = { min = vim.diagnostic.severity.HINT },
           source = "if_many",
@@ -389,7 +389,7 @@ return {
           prefix = "",
           focusable = false,
         },
-      }, bufnr) -- Apply config specifically to this buffer (bufnr)
+      }
 
       -- Enable inlay hints if supported
       if client.supports_method "textDocument/inlayHint" then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end
