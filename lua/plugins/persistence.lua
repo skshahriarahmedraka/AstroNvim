@@ -1,0 +1,26 @@
+-- ~/.config/astrovim/user/plugins.lua
+return {
+  -- {
+  --   "olimorris/persisted.nvim",
+  --   event = "BufReadPre", -- Load early for root detection
+  --   opts = {
+  --     -- Auto-save and auto-restore without any key presses
+  --     autosave = true,
+  --     autorestore = true,
+  --
+  --     -- Optional but recommended:
+  --     branch = true,           -- Save sessions per Git branch
+  --     silent = true,           -- No messages when saving/restoring
+  --     cwd = true,              -- Store sessions per working directory
+  --     root_dirs = {           -- Project root detection
+  --       ".git",
+  --       "package.json",
+  --       "Cargo.toml",
+  --       "pyproject.toml",
+  --       "go.mod",
+  --       "Makefile",
+  --       "README.md",
+  --     }
+  --   },
+  -- },
+}

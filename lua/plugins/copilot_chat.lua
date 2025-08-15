@@ -176,3 +176,40 @@ return {
     },
   },
 }
+
+
+
+-- Key Features & Mappings 
+-- Core Commands 
+--
+--     <leader>ccq - Toggle Copilot Chat window
+--     <leader>ccx - Reset current chat session
+--     <leader>ccs - Save chat session
+--     <leader>ccl - Load previous chat session
+--
+--
+-- Code Analysis Commands (Normal/Visual Mode) 
+--
+--     <leader>cce - Explain selected code
+--     <leader>ccr - Review selected code
+--     <leader>ccf - Fix selected code
+--     <leader>cco - Optimize selected code
+--     <leader>ccd - Generate documentation
+--     <leader>cct - Generate tests
+--     <leader>ccD - Fix diagnostic issues
+--
+--
+-- Specialized Agent Commands 
+--
+--     <leader>cca - General AI Assistant
+--     <leader>ccA - Code Review Specialist
+--     <leader>ccb - Debugging Expert
+--     <leader>ccR - Refactoring Specialist
+--
+--
+-- Working with Results 
+--
+--     <C-y> - Accept suggested changes
+--     gy - Yank (copy) suggested changes
+--     gd - Show diff of suggested changes
+

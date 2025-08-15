@@ -92,7 +92,7 @@ return {
               ST1003 = false, -- ignore underscore in package names
               ST1020 = false, -- ignore method comment format
             },
-            staticcheck = true,
+            staticcheck = false,
             -- Completion settings
             usePlaceholders = false,
             completionBudget = "100ms",
@@ -246,10 +246,10 @@ return {
     mappings = {
       n = {
         -- Make 'dd' delete without yanking (to black hole register)
-        ["dd"] = { '"_dd', desc = "Delete line (no yank)" },
+        -- ["dd"] = { '"_dd', desc = "Delete line (no yank)" },
 
         -- Make '_dd' delete and yank (like original dd)
-        ["_dd"] = { "dd", desc = "Delete line and yank" },
+        -- ["_dd"] = { "dd", desc = "Delete line and yank" },
 
         -- Navigation
         gD = {
@@ -319,7 +319,34 @@ return {
         },
 
         -- Diagnostics
+        -- Replace your current mapping with this safe version:
+        -- Replace your current mapping with this safe version:
+        ["<Leader><Leader>"] = {
+          function()
+            local ok, telescope = pcall(require, "telescope.builtin")
+            if ok then
+              telescope.buffers()
+            else
+              vim.cmd "ls" -- fallback to basic buffer list
+            end
+          end,
+          desc = "Switch buffers",
+        },
+        -- Quick buffer navigation
+        ["<Leader>bb"] = { "<C-6>", desc = "Toggle last buffer" },
+        -- ["<Leader>l"] = { ":bnext<CR>", desc = "Next buffer" },
+        -- ["<Leader>h"] = { ":bprev<CR>", desc = "Previous buffer" },
+        --
+        -- -- Buffer management
+        -- ["<Leader>bd"] = { ":bdelete<CR>", desc = "Delete buffer" },
+        -- ["<Leader>bD"] = { ":bdelete!<CR>", desc = "Force delete buffer" },
+        -- ["<Leader>ba"] = { ':%bdelete|edit #|normal `"<CR>', desc = "Delete all but current" },
+        --
+        -- -- Alternative buffer list (always available)
+        -- ["<Leader>bl"] = { ":ls<CR>:b<Space>", desc = "List buffers" },
+        -- Diagnostics
         ["<Leader>cd"] = { function() vim.diagnostic.open_float() end, desc = "Line diagnostics" },
+        ["<Leader>cD"] = { function() vim.diagnostic.setloclist() end, desc = "Diagnostics location list" },
         ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
         ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
         ["<Leader>cq"] = { function() vim.diagnostic.setqflist() end, desc = "Diagnostics quickfix" },
@@ -422,23 +449,6 @@ return {
       if client.name == "gopls" and vim.bo[bufnr].filetype == "go" then
         -- Set very fast update times for Go files to trigger CursorHold* events faster
         vim.opt_local.updatetime = 100 -- Lower than default 500ms, adjust if needed (e.g., 250)
-
-        -- Optional: Create a more aggressive diagnostic update system if needed beyond gopls' built-in push
-        -- But often, gopls pushing diagnostics combined with update_in_insert=true is sufficient.
-        -- If you still need it, ensure it doesn't conflict:
-        -- local diagnostics_group = vim.api.nvim_create_augroup("gopls_realtime_diagnostics_" .. bufnr, { clear = true })
-        -- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
-        --   buffer = bufnr,
-        --   group = diagnostics_group,
-        --   callback = function()
-        --     vim.schedule(function()
-        --       if vim.api.nvim_buf_is_valid(bufnr) then
-        --         vim.diagnostic.show(nil, bufnr)
-        --         -- vim.cmd("redraw") -- Might be needed in extreme cases, test without first
-        --       end
-        --     end)
-        --   end,
-        -- })
       end
     end,
   },

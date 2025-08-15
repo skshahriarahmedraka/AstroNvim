@@ -10,6 +10,36 @@ return {
   "AstroNvim/astrocore",
   ---@type AstroCoreOpts
   opts = {
+    -- autocmds = {
+    --   restore_session = {
+    --     {
+    --       event = "VimEnter",
+    --       desc = "Restore previous directory session if neovim opened with no arguments",
+    --       nested = true, -- trigger other autocommands as buffers open
+    --       callback = function()
+    --         -- Only load the session if nvim was started with no args
+    --         if vim.fn.argc(-1) == 0 then
+    --           -- try to load a directory session using the current working directory
+    --           require("resession").load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
+    --         end
+    --       end,
+    --     },
+    --   },
+    -- },
+    -- -- Configuration table of session options for AstroNvim's session management powered by Resession
+    -- sessions = {
+    --   -- Configure auto saving
+    --   autosave = {
+    --     last = true, -- auto save last session
+    --     cwd = true, -- auto save session for each working directory
+    --   },
+    --   -- Patterns to ignore when saving sessions
+    --   ignore = {
+    --     dirs = {}, -- working directories to ignore sessions in
+    --     filetypes = { "gitcommit", "gitrebase" }, -- filetypes to ignore sessions
+    --     buftypes = {}, -- buffer types to ignore sessions
+    --   },
+    -- },
     -- Configure core features of AstroNvim
     features = {
       large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
@@ -57,6 +87,18 @@ return {
     mappings = {
       -- first key is the mode
       n = {
+        -- ["ZZ"] = {
+        --   function()
+        --     -- Save current session
+        --     if require("astrocore.buffer").is_valid_session() then
+        --       require("resession").save(vim.fn.getcwd(), { dir = "dirsession", notify = true })
+        --       vim.notify("Session saved!", vim.log.levels.INFO)
+        --     end
+        --     -- Save all buffers and quit
+        --     vim.cmd "wqall"
+        --   end,
+        --   desc = "Save session and exit",
+        -- },
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs
