@@ -70,4 +70,9 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- local session = require "user.session"
 -- session.setup()
-
+require("user.session").setup({
+  debug = true,           -- Enable to troubleshoot
+  auto_save = true,       
+  auto_restore = true,    
+  delay_ms = 150,         -- This is now ignored in favor of VimEnter
+})
