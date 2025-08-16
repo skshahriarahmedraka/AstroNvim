@@ -91,6 +91,7 @@ return {
               ST1000 = false, -- ignore package comment requirement
               ST1003 = false, -- ignore underscore in package names
               ST1020 = false, -- ignore method comment format
+              golangci_lint = false,
             },
             staticcheck = false,
             -- Completion settings
