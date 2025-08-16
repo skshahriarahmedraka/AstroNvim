@@ -31,7 +31,7 @@ return {
   -- { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.eslint" },
   { import = "astrocommunity.pack.helm" },
-  { import = "astrocommunity.pack.markdown" },
+  -- { import = "astrocommunity.pack.markdown" },
   -- { import = "astrocommunity.pack.nginx" },
   { import = "astrocommunity.pack.proto" },
   -- { import = "astrocommunity.pack.python" },
