@@ -76,3 +76,16 @@ require("user.session").setup({
   auto_restore = true,    
   delay_ms = 150,         -- This is now ignored in favor of VimEnter
 })
+
+-- Patch for astroui statusline error
+pcall(function()
+  local status_config = require("astroui.status.config")
+  if status_config then
+    status_config.buf_name = function(self)
+      if not self.bufnr or not vim.api.nvim_buf_is_valid(self.bufnr) then return "[No Name]" end
+      local buf_name = vim.api.nvim_buf_get_name(self.bufnr)
+      if buf_name == "" then return "[No Name]" end
+      return vim.fn.fnamemodify(buf_name, ":t")
+    end
+  end
+end)

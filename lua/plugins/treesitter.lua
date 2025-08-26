@@ -8,8 +8,21 @@ return {
   opts = {
     ensure_installed = {
       "lua",
-      "vim","go", "gomod", "gowork", "gosum"
-      -- add more arguments for adding more treesitter parsers
+      "vim",
+      "go",
+      "gomod",
+      "gowork",
+      "gosum",
+      "html",
+      "css",
+      "scss",
+      "javascript",
+      "typescript",
+      "tsx",
+      "vue",
+      "svelte",
+      "json",
+      "yaml",
     },
   },
 }
