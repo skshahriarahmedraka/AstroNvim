@@ -11,7 +11,7 @@ return {
   { import = "astrocommunity.pack.bash" },
   { import = "astrocommunity.pack.cmake" },
   { import = "astrocommunity.pack.cpp" },
-  { import = "astrocommunity.pack.go" },
+  -- { import = "astrocommunity.pack.go" },
   -- { import = "astrocommunity.pack.golangci-lint" },
   { import = "astrocommunity.pack.zig" },
   { import = "astrocommunity.pack.svelte" },

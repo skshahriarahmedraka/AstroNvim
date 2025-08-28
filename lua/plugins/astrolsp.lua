@@ -92,9 +92,21 @@ return {
               ST1003 = false, -- ignore underscore in package names
               ST1020 = false, -- ignore method comment format
               golangci_lint = false,
+              fieldalignment = false,
+              fillreturns = true,
+              nilness = true,
+              nonewvars = true,
+              undeclaredname = true,
+              unreachable = true,
+              unusedwrite = true,
+              useany = true,
             },
             staticcheck = false,
             -- Completion settings
+            ["ui.diagnostic.analyses"] = {
+              golangci_lint = false,
+            },
+            buildFlags = { "-tags", "integration" },
             usePlaceholders = false,
             completionBudget = "100ms",
             -- Diagnostic settings - use correct paths
@@ -110,12 +122,25 @@ return {
               upgrade_dependency = true,
               vendor = true,
             },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
             -- Hover and documentation
             hoverKind = "FullDocumentation",
             linkTarget = "pkg.go.dev",
             linksInHover = true,
             -- Experimental features
             experimentalPostfixCompletions = true,
+            completeUnimported = true,
+            matcher = "Fuzzy",
+            semanticTokens = true,
+            symbolMatcher = "fuzzy",
           },
         },
         -- Enable real-time diagnostics with proper debounce
