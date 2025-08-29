@@ -27,3 +27,6 @@ map("n", "<leader>gm", "<cmd>Git merge ", { desc = "Git merge" })
 map("n", "<leader>gss", "<cmd>Git stash<cr>", { desc = "Git stash" })
 map("n", "<leader>gsp", "<cmd>Git stash pop<cr>", { desc = "Git stash pop" })
 map("n", "<leader>gsl", "<cmd>Git stash list<cr>", { desc = "Git stash list" })
+
+
+return {}
