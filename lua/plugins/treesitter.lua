@@ -24,8 +24,8 @@ return {
       "svelte",
       "json",
       "yaml",
-      "rust",
-      "ron",
+      -- "rust",
+      -- "ron",
     },
   },
 }

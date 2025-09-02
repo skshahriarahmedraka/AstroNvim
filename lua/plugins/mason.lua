@@ -4,15 +4,15 @@
 
 ---@type LazySpec
 return {
-  {
-    "mason-org/mason.nvim",
-    optional = true,
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "codelldb" })
-      if vim.lsp.diagnostics == "bacon-ls" then vim.list_extend(opts.ensure_installed, { "bacon" }) end
-    end,
-  },
+  -- {
+  --   "mason-org/mason.nvim",
+  --   optional = true,
+  --   opts = function(_, opts)
+  --     opts.ensure_installed = opts.ensure_installed or {}
+  --     vim.list_extend(opts.ensure_installed, { "codelldb" })
+  --     if vim.lsp.diagnostics == "bacon-ls" then vim.list_extend(opts.ensure_installed, { "bacon" }) end
+  --   end,
+  -- },
   -- use mason-tool-installer for automatically installing Mason packages
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
