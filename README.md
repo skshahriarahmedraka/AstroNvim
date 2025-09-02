@@ -5,6 +5,7 @@
 A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
 
 ## 🛠️ Installation
+
 #### Make a backup of your current nvim and shared folder
 
 ```shell
@@ -26,6 +27,14 @@ You can also just clone this repository directly if you do not want to track you
   git clone git@github.com:skshahriarahmedraka/AstroNvim.git ~/.config/nvim
 ```
 
+or
+
+```
+git clone --depth 1 https://github.com/skshahriarahmedraka/AstroNvim.git  ~/.config/nvim
+rm -rf ~/.config/nvim/.git
+nvim
+```
+
 or if you want to use HTTPS:
 
 ```shell
@@ -37,10 +46,11 @@ or if you want to use HTTPS:
 ```shell
 nvim
 ```
-#### catppuccin theme 
+
+#### catppuccin theme
 
 run command in nvim to set the theme
+
 ```
 colorscheme catppuccin " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
 ```
-

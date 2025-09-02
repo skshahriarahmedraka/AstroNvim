@@ -14,4 +14,12 @@ return {
       },
     },
   },
+  opts = {
+    servers = {
+      bacon_ls = {
+        enabled = vim.lsp.diagnostics == "bacon-ls",
+      },
+      rust_analyzer = { enabled = false },
+    },
+  },
 }

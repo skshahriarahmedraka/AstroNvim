@@ -444,7 +444,7 @@ return {
         },
       }
 
-      if client.name == "null-ls" and vim.bo[bufnr].filetype == "markdown" then vim.diagnostic.enable(false, bufnr) end
+      if client.name == "null-ls" and vim.bo[bufnr].filetype == "markdown" then vim.diagnostic.disable(bufnr) end
 
       -- Enable inlay hints if supported
       if client.supports_method "textDocument/inlayHint" then vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end

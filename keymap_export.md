@@ -1,0 +1,712 @@
+# AstroVim Keymap Export
+Generated on: 2025-08-30 11:26:10
+
+- command used to generate this file:
+``` lua
+lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't', 'o', 's'} local output = {} table.insert(output, "# AstroVim Keymap Export") table.insert(output, "Generated on: " .. os.date("%Y-%m-%d %H:%M:%S")) table.insert(output, "") for _, mode in ipairs(modes) do local mode_name = { n = "Normal", i = "Insert", v = "Visual", x = "Visual Block", c = "Command", t = "Terminal", o = "Operator Pending", s = "Select" } table.insert(output, "## " .. mode_name[mode] .. " Mode (" .. mode .. ")") table.insert(output, "") local keymaps = vim.api.nvim_get_keymap(mode) table.sort(keymaps, function(a, b) return a.lhs < b.lhs end) for _, keymap in ipairs(keymaps) do local desc = keymap.desc or "" local rhs = keymap.rhs or keymap.callback and "<function>" or "" local line = string.format("- `%s` → `%s`", keymap.lhs, rhs) if desc ~= "" then line = line .. " - " .. desc end table.insert(output, line) end table.insert(output, "") end local filename = vim.fn.stdpath('config') .. '/keymap_export.md' local file = io.open(filename, 'w') if file then file:write(table.concat(output, '\n')) file:close() print("Keymaps exported to: " .. filename) else print("Error: Could not write to file") for _, line in ipairs(output) do print(line) end end end export_keymaps()
+
+```
+## Normal Mode (n)
+
+- `  ` → `<function>` - Smart Find Files
+- ` ,` → `<function>` - Buffers
+- ` .` → `<function>` - Toggle Scratch Buffer
+- ` /` → `<function>` - Grep
+- ` :` → `<function>` - Command History
+- ` C` → `<function>` - Force close buffer
+- ` N` → `<function>` - Neovim News
+- ` Q` → `<Cmd>confirm qall<CR>` - Exit AstroNvim
+- ` R` → `<function>` - Rename file
+- ` S` → `<function>` - Select Scratch Buffer
+- ` S.` → `<function>` - Load current dirsession
+- ` SD` → `<function>` - Delete a dirsession
+- ` SF` → `<function>` - Load a dirsession
+- ` SS` → `<function>` - Save this dirsession
+- ` Sd` → `<function>` - Delete a session
+- ` Sf` → `<function>` - Load a session
+- ` Sl` → `<function>` - Load last session
+- ` Ss` → `<function>` - Save this session
+- ` St` → `<function>` - Save this tab's session
+- ` Z` → `<function>` - Toggle Zoom
+- ` bC` → `<function>` - Close all buffers
+- ` b\` → `<function>` - Horizontal split buffer from tabline
+- ` bb` → `<Cmd>BufferOrderByBufferNumber<CR>`
+- ` bc` → `<function>` - Close all buffers except current
+- ` bd` → `<Cmd>BufferOrderByDirectory<CR>`
+- ` bl` → `<Cmd>BufferOrderByLanguage<CR>`
+- ` bp` → `<function>` - Previous buffer
+- ` br` → `<function>` - Close all buffers to the right
+- ` bse` → `<function>` - By extension
+- ` bsi` → `<function>` - By buffer number
+- ` bsm` → `<function>` - By modification
+- ` bsp` → `<function>` - By full path
+- ` bsr` → `<function>` - By relative path
+- ` bw` → `<Cmd>BufferOrderByWindowNumber<CR>`
+- ` b|` → `<function>` - Vertical split buffer from tabline
+- ` c` → `<function>` - Close buffer
+- ` cR` → `<function>` - Rename File
+- ` ccA` → `<Cmd>CopilotChatCodeAgent<CR>` - Code Review Agent
+- ` ccD` → `<Cmd>CopilotChatFixDiagnostic<CR>` - Fix diagnostic
+- ` ccM` → `<Cmd>CopilotChatCommitStaged<CR>` - Generate commit message for staged
+- ` ccQ` → `<function>` - Quick chat
+- ` ccR` → `<Cmd>CopilotChatRefactorAgent<CR>` - Refactor Agent
+- ` cca` → `<Cmd>CopilotChatAgent<CR>` - General AI Agent
+- ` ccb` → `<Cmd>CopilotChatDebugAgent<CR>` - Debug Agent
+- ` ccd` → `<Cmd>CopilotChatDocs<CR>` - Generate docs
+- ` cce` → `<Cmd>CopilotChatExplain<CR>` - Explain code
+- ` ccf` → `<Cmd>CopilotChatFix<CR>` - Fix code
+- ` ccl` → `<Cmd>CopilotChatLoad<CR>` - Load Copilot Chat
+- ` ccm` → `<Cmd>CopilotChatCommit<CR>` - Generate commit message
+- ` cco` → `<Cmd>CopilotChatOptimize<CR>` - Optimize code
+- ` ccq` → `<Cmd>CopilotChatToggle<CR>` - Toggle Copilot Chat
+- ` ccr` → `<Cmd>CopilotChatReview<CR>` - Review code
+- ` ccs` → `<Cmd>CopilotChatSave<CR>` - Save Copilot Chat
+- ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
+- ` ccx` → `<Cmd>CopilotChatReset<CR>` - Reset Copilot Chat
+- ` dB` → `<function>` - Clear Breakpoints
+- ` dC` → `<function>` - Conditional Breakpoint (S-F9)
+- ` dE` → `<function>` - Evaluate Input
+- ` dO` → `<function>` - Step Out (S-F11)
+- ` dQ` → `<function>` - Terminate Session (S-F5)
+- ` dR` → `<function>` - Toggle REPL
+- ` db` → `<function>` - Toggle Breakpoint (F9)
+- ` dc` → `<function>` - Start/Continue (F5)
+- ` dh` → `<function>` - Debugger Hover
+- ` di` → `<function>` - Step Into (F11)
+- ` do` → `<function>` - Step Over (F10)
+- ` dp` → `<function>` - Pause (F6)
+- ` dq` → `<function>` - Close Session
+- ` dr` → `<function>` - Restart (C-F5)
+- ` ds` → `<function>` - Run To Cursor
+- ` du` → `<function>` - Toggle Debugger UI
+- ` e` → `<function>` - File Explorer
+- ` f'` → `<function>` - Find marks
+- ` f<CR>` → `<function>` - Resume previous search
+- ` fC` → `<function>` - Find commands
+- ` fF` → `<function>` - Find all files
+- ` fO` → `<function>` - Find old files (cwd)
+- ` fT` → `<Cmd>TodoTelescope<CR>` - Find TODOs
+- ` fW` → `<function>` - Find words in all files
+- ` fa` → `<function>` - Find AstroNvim config files
+- ` fb` → `<function>` - Buffers
+- ` fc` → `<function>` - Find Config File
+- ` ff` → `<function>` - Find Files
+- ` fg` → `<function>` - Find Git Files
+- ` fh` → `<function>` - Find help
+- ` fk` → `<function>` - Find keymaps
+- ` fl` → `<function>` - Find lines
+- ` fm` → `<function>` - Find man
+- ` fn` → `<function>` - Find notifications
+- ` fo` → `<function>` - Find old files
+- ` fp` → `<function>` - Projects
+- ` fr` → `<function>` - Recent
+- ` fs` → `<function>` - Find buffers/recent/files
+- ` ft` → `<function>` - Find themes
+- ` fu` → `<function>` - Find undo history
+- ` fw` → `<function>` - Find words
+- ` gA` → `<Cmd>Git add .<CR>` - Git add all
+- ` gB` → `<Cmd>Git blame<CR>` - Git blame
+- ` gC` → `<function>` - Git commits (current file)
+- ` gD` → `<Cmd>Gdiffsplit HEAD<CR>` - Git diff HEAD
+- ` gL` → `<Cmd>Git log<CR>` - Git log detailed
+- ` gP` → `<Cmd>Git pull<CR>` - Git pull
+- ` gS` → `<function>` - Git Stash
+- ` gT` → `<function>` - Git stash
+- ` ga` → `<Cmd>Git add %<CR>` - Git add current file
+- ` gb` → `<function>` - Git branches
+- ` gc` → `<Cmd>Git commit<CR>` - Git commit
+- ` gcb` → `<Cmd>Git checkout -b ` - Git checkout new branch
+- ` gco` → `<Cmd>Git checkout ` - Git checkout
+- ` gd` → `<Cmd>Gdiffsplit<CR>` - Git diff split
+- ` gf` → `<function>` - Git Log File
+- ` gg` → `<function>` - Lazygit
+- ` gh` → `<function>` - File history
+- ` gl` → `<Cmd>Git log --oneline<CR>` - Git log
+- ` gm` → `<Cmd>Git merge ` - Git merge
+- ` go` → `<function>` - Git browse (open)
+- ` gp` → `<Cmd>Git push<CR>` - Git push
+- ` gs` → `<Cmd>Git<CR>` - Git status
+- ` gsl` → `<Cmd>Git stash list<CR>` - Git stash list
+- ` gsp` → `<Cmd>Git stash pop<CR>` - Git stash pop
+- ` gss` → `<Cmd>Git stash<CR>` - Git stash
+- ` gt` → `<function>` - Git status
+- ` gv` → `<function>` - Open diffview
+- ` h` → `<function>` - Home Screen
+- ` lD` → `<function>` - Search diagnostics
+- ` lS` → `<function>` - Symbols outline
+- ` ld` → `<function>` - Hover diagnostics
+- ` ls` → `<function>` - Search symbols
+- ` n` → `<function>` - Notification History
+- ` o` → `<function>` - Toggle Explorer Focus
+- ` pM` → `<Cmd>MasonToolsUpdate<CR>` - Mason Update
+- ` pS` → `<function>` - Plugins Sync
+- ` pU` → `<function>` - Plugins Update
+- ` pa` → `<function>` - Update Lazy and Mason
+- ` pi` → `<function>` - Plugins Install
+- ` pm` → `<function>` - Mason Installer
+- ` ps` → `<function>` - Plugins Status
+- ` pu` → `<function>` - Plugins Check Updates
+- ` q` → `<Cmd>confirm q<CR>` - Quit Window
+- ` s"` → `<function>` - Registers
+- ` s/` → `<function>` - Search History
+- ` sB` → `<function>` - Grep Open Buffers
+- ` sC` → `<function>` - Commands
+- ` sD` → `<function>` - Buffer Diagnostics
+- ` sH` → `<function>` - Highlights
+- ` sM` → `<function>` - Man Pages
+- ` sR` → `<function>` - Resume
+- ` sS` → `<function>` - LSP Workspace Symbols
+- ` sa` → `<function>` - Autocmds
+- ` sb` → `<function>` - Buffer Lines
+- ` sc` → `<function>` - Command History
+- ` sd` → `<function>` - Diagnostics
+- ` sg` → `<function>` - Grep
+- ` sh` → `<function>` - Help Pages
+- ` si` → `<function>` - Icons
+- ` sj` → `<function>` - Jumps
+- ` sk` → `<function>` - Keymaps
+- ` sl` → `<function>` - Location List
+- ` sm` → `<function>` - Marks
+- ` sp` → `<function>` - Search for Plugin Spec
+- ` sq` → `<function>` - Quickfix List
+- ` ss` → `<function>` - LSP Symbols
+- ` su` → `<function>` - Undo History
+- ` sw` → `<function>` - Visual selection or word
+- ` tf` → `<Cmd>ToggleTerm direction=float<CR>` - ToggleTerm float
+- ` th` → `<Cmd>ToggleTerm size=10 direction=horizontal<CR>` - ToggleTerm horizontal split
+- ` tl` → `<function>` - ToggleTerm lazygit
+- ` tn` → `<function>` - ToggleTerm node
+- ` tp` → `<function>` - ToggleTerm python
+- ` tv` → `<Cmd>ToggleTerm size=80 direction=vertical<CR>` - ToggleTerm vertical split
+- ` u>` → `<function>` - Toggle foldcolumn
+- ` uA` → `<function>` - Toggle rooter autochdir
+- ` uC` → `<function>` - Colorschemes
+- ` uD` → `<function>` - Toggle Dimming
+- ` uL` → `<function>` - Toggle Relative Number
+- ` uN` → `<function>` - Toggle Notifications
+- ` uR` → `<function>` - Toggle reference highlighting (global)
+- ` uS` → `<function>` - Toggle conceal
+- ` uT` → `<function>` - Toggle Treesitter Highlight
+- ` uV` → `<function>` - Toggle virtual lines
+- ` uZ` → `<function>` - Toggle zen mode
+- ` ua` → `<function>` - Toggle autopairs
+- ` ub` → `<function>` - Toggle Dark Background
+- ` uc` → `<function>` - Toggle conceallevel
+- ` ud` → `<function>` - Toggle Diagnostics
+- ` ug` → `<function>` - Toggle Indent Guides
+- ` uh` → `<function>` - Toggle Inlay Hints
+- ` ui` → `<function>` - Change indent setting
+- ` ul` → `<function>` - Toggle Line Numbers
+- ` un` → `<function>` - Dismiss All Notifications
+- ` up` → `<function>` - Toggle paste mode
+- ` ur` → `<function>` - Toggle reference highlighting (buffer)
+- ` us` → `<function>` - Toggle Spelling
+- ` ut` → `<function>` - Toggle tabline
+- ` uu` → `<function>` - Toggle URL highlight
+- ` uv` → `<function>` - Toggle virtual text
+- ` uw` → `<function>` - Toggle Wrap
+- ` uy` → `<function>` - Toggle syntax highlight (buffer)
+- ` uz` → `<function>` - Toggle color highlight
+- ` u|` → `<function>` - Toggle indent guides
+- ` w` → `<Cmd>w<CR>` - Save
+- ` xl` → `<Cmd>lopen<CR>` - Location List
+- ` xq` → `<Cmd>copen<CR>` - Quickfix List
+- ` z` → `<function>` - Toggle Zen Mode
+- `%` → `<Plug>(MatchitNormalForward)`
+- `&` → `:&&<CR>` - :help &-default
+- `<C-'>` → `<Cmd>execute v:count . "ToggleTerm"<CR>` - Toggle terminal
+- `<C-/>` → `<function>` - Toggle Terminal
+- `<C-Down>` → `<function>` - Resize split down
+- `<C-H>` → `<function>` - Move to left split
+- `<C-J>` → `<function>` - Move to below split
+- `<C-K>` → `<function>` - Move to above split
+- `<C-L>` → `<function>` - Move to right split
+- `<C-Left>` → `<function>` - Resize split left
+- `<C-P>` → `<Cmd>BufferPick<CR>`
+- `<C-Q>` → `<Cmd>q!<CR>` - Force quit
+- `<C-Right>` → `<function>` - Resize split right
+- `<C-S>` → `<Cmd>silent! update! | redraw<CR>` - Force write
+- `<C-Up>` → `<function>` - Resize split up
+- `<C-W><C-D>` → `<C-W>d` - Show diagnostics under the cursor
+- `<C-W>d` → `<function>` - Show diagnostics under the cursor
+- `<C-_>` → `<function>` - which_key_ignore
+- `<F10>` → `<function>` - Debugger: Step Over
+- `<F11>` → `<function>` - Debugger: Step Into
+- `<F17>` → `<function>` - Debugger: Stop
+- `<F21>` → `<function>` - Debugger: Conditional Breakpoint
+- `<F23>` → `<function>` - Debugger: Step Out
+- `<F29>` → `<function>` - Debugger: Restart
+- `<F5>` → `<function>` - Debugger: Start
+- `<F6>` → `<function>` - Save Session
+- `<F7>` → `<function>` - Restore Session
+- `<F9>` → `<function>` - Debugger: Toggle Breakpoint
+- `<LeftMouse>` → `<function>`
+- `<M-,>` → `<Cmd>BufferPrevious<CR>`
+- `<M-.>` → `<Cmd>BufferNext<CR>`
+- `<M-0>` → `<Cmd>BufferLast<CR>`
+- `<M-1>` → `<Cmd>BufferGoto 1<CR>`
+- `<M-2>` → `<Cmd>BufferGoto 2<CR>`
+- `<M-3>` → `<Cmd>BufferGoto 3<CR>`
+- `<M-4>` → `<Cmd>BufferGoto 4<CR>`
+- `<M-5>` → `<Cmd>BufferGoto 5<CR>`
+- `<M-6>` → `<Cmd>BufferGoto 6<CR>`
+- `<M-7>` → `<Cmd>BufferGoto 7<CR>`
+- `<M-8>` → `<Cmd>BufferGoto 8<CR>`
+- `<M-9>` → `<Cmd>BufferGoto 9<CR>`
+- `<M->>` → `<Cmd>BufferMoveNext<CR>`
+- `<M-c>` → `<Cmd>BufferClose<CR>`
+- `<M-lt>` → `<Cmd>BufferMovePrevious<CR>`
+- `<M-n>` → `<function>` - Move to next reference
+- `<M-p>` → `<Cmd>BufferPin<CR>`
+- `<M-x>` → `<Cmd>BufferClose<CR>`
+- `<MouseMove>` → `<function>` - hover.nvim (mouse)
+- `<Plug>(MatchitNormalBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'n')<CR>`
+- `<Plug>(MatchitNormalForward)` → `:<C-U>call matchit#Match_wrapper('',1,'n')<CR>`
+- `<Plug>(MatchitNormalMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>`
+- `<Plug>(MatchitNormalMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "n")<CR>`
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `<Plug>PlenaryTestFile` → `:lua require('plenary.test_harness').test_file(vim.fn.expand("%:p"))<CR>`
+- `<Plug>luasnip-delete-check` → `<function>` - LuaSnip: Removes current snippet from jumplist
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
+- `<lt>b` → `<function>` - Move buffer tab left
+- `>b` → `<function>` - Move buffer tab right
+- `Y` → `y$` - :help Y-default
+- `[ ` → `<function>` - Add empty line above cursor
+- `[%` → `<Plug>(MatchitNormalMultiBackward)`
+- `[<C-L>` → `<function>` - :lpfile
+- `[<C-Q>` → `<function>` - :cpfile
+- `[<C-T>` → `<function>` -  :ptprevious
+- `[A` → `<function>` - :rewind
+- `[B` → `<function>` - :brewind
+- `[D` → `<function>` - Jump to the first diagnostic in the current buffer
+- `[L` → `<function>` - :lrewind
+- `[Q` → `<function>` - :crewind
+- `[T` → `<function>` - Previous TODO comment
+- `[[` → `<function>` - Prev Reference
+- `[a` → `<function>` - :previous
+- `[b` → `<function>` - Previous buffer
+- `[d` → `<function>` - Jump to the previous diagnostic in the current buffer
+- `[e` → `<function>` - Previous error
+- `[i` → `<function>` - jump to top edge of scope
+- `[l` → `<function>` - :lprevious
+- `[q` → `<function>` - :cprevious
+- `[r` → `<function>` - Previous reference
+- `[t` → `<function>` - Previous tab
+- `[w` → `<function>` - Previous warning
+- `\` → `<Cmd>split<CR>` - Horizontal Split
+- `] ` → `<function>` - Add empty line below cursor
+- `]%` → `<Plug>(MatchitNormalMultiForward)`
+- `]<C-L>` → `<function>` - :lnfile
+- `]<C-Q>` → `<function>` - :cnfile
+- `]<C-T>` → `<function>` - :ptnext
+- `]A` → `<function>` - :last
+- `]B` → `<function>` - :blast
+- `]D` → `<function>` - Jump to the last diagnostic in the current buffer
+- `]L` → `<function>` - :llast
+- `]Q` → `<function>` - :clast
+- `]T` → `<function>` - Next TODO comment
+- `]]` → `<function>` - Next Reference
+- `]a` → `<function>` - :next
+- `]b` → `<function>` - Next buffer
+- `]d` → `<function>` - Jump to the next diagnostic in the current buffer
+- `]e` → `<function>` - Next error
+- `]i` → `<function>` - jump to bottom edge of scope
+- `]l` → `<function>` - :lnext
+- `]q` → `<function>` - :cnext
+- `]r` → `<function>` - Next reference
+- `]t` → `<function>` - Next tab
+- `]w` → `<function>` - Next warning
+- `g%` → `<Plug>(MatchitNormalBackward)`
+- `gD` → `<function>` - Goto Declaration
+- `gI` → `<function>` - Goto Implementation
+- `gO` → `<function>` - vim.lsp.buf.document_symbol()
+- `gc` → `<function>` - Toggle comment
+- `gcO` → `O<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>` - Add Comment Above
+- `gcc` → `<function>` - Toggle comment line
+- `gco` → `o<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>` - Add Comment Below
+- `gd` → `<function>` - Goto Definition
+- `gl` → `<function>` - Hover diagnostics
+- `gr` → `<function>` - References
+- `gra` → `<function>` - vim.lsp.buf.code_action()
+- `gri` → `<function>` - vim.lsp.buf.implementation()
+- `grn` → `<function>` - vim.lsp.buf.rename()
+- `grr` → `<function>` - vim.lsp.buf.references()
+- `grt` → `<function>` - vim.lsp.buf.type_definition()
+- `gx` → `<function>` - Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
+- `gy` → `<function>` - Goto T[y]pe Definition
+- `j` → `v:count == 0 ? 'gj' : 'j'` - Move cursor down
+- `k` → `v:count == 0 ? 'gk' : 'k'` - Move cursor up
+- `mA` → `<function>`
+- `mB` → `<function>`
+- `mC` → `<function>`
+- `mD` → `<function>`
+- `mE` → `<function>`
+- `mF` → `<function>`
+- `mG` → `<function>`
+- `mH` → `<function>`
+- `mI` → `<function>`
+- `mJ` → `<function>`
+- `mK` → `<function>`
+- `mL` → `<function>`
+- `mM` → `<function>`
+- `mN` → `<function>`
+- `mO` → `<function>`
+- `mP` → `<function>`
+- `mQ` → `<function>`
+- `mR` → `<function>`
+- `mS` → `<function>`
+- `mT` → `<function>`
+- `mU` → `<function>`
+- `mV` → `<function>`
+- `mW` → `<function>`
+- `mX` → `<function>`
+- `mY` → `<function>`
+- `mZ` → `<function>`
+- `ma` → `<function>`
+- `mb` → `<function>`
+- `mc` → `<function>`
+- `md` → `<function>`
+- `me` → `<function>`
+- `mf` → `<function>`
+- `mg` → `<function>`
+- `mh` → `<function>`
+- `mi` → `<function>`
+- `mj` → `<function>`
+- `mk` → `<function>`
+- `ml` → `<function>`
+- `mm` → `<function>`
+- `mn` → `<function>`
+- `mo` → `<function>`
+- `mp` → `<function>`
+- `mq` → `<function>`
+- `mr` → `<function>`
+- `ms` → `<function>`
+- `mt` → `<function>`
+- `mu` → `<function>`
+- `mv` → `<function>`
+- `mw` → `<function>`
+- `mx` → `<function>`
+- `my` → `<function>`
+- `mz` → `<function>`
+- `|` → `<Cmd>vsplit<CR>` - Vertical Split
+
+## Insert Mode (i)
+
+- `<C-'>` → `<Esc><Cmd>ToggleTerm<CR>` - Toggle terminal
+- `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
+- `<C-U>` → `<C-G>u<C-U>` - :help i_CTRL-U-default
+- `<C-W>` → `<C-G>u<C-W>` - :help i_CTRL-W-default
+- `<C-]>` → `copilot#Dismiss() . "\<C-]>"`
+- `<CR>` → `v:lua.require'nvim-autopairs'.completion_confirm()`
+- `<F7>` → `<Esc><Cmd>ToggleTerm<CR>` - Toggle terminal
+- `<LeftMouse>` → `<function>`
+- `<M-Bslash>` → `<Plug>(copilot-suggest)`
+- `<M-C-Right>` → `<Plug>(copilot-accept-line)`
+- `<M-Right>` → `<Plug>(copilot-accept-word)`
+- `<M-[>` → `<Plug>(copilot-previous)`
+- `<M-]>` → `<Plug>(copilot-next)`
+- `<Plug>(copilot-accept-line)` → `copilot#AcceptLine()`
+- `<Plug>(copilot-accept-word)` → `copilot#AcceptWord()`
+- `<Plug>(copilot-dismiss)` → `<Cmd>call copilot#Dismiss()<CR>`
+- `<Plug>(copilot-next)` → `<Cmd>call copilot#Next()<CR>`
+- `<Plug>(copilot-previous)` → `<Cmd>call copilot#Previous()<CR>`
+- `<Plug>(copilot-suggest)` → `<Cmd>call copilot#Suggest()<CR>`
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `<Plug>luasnip-delete-check` → `<function>` - LuaSnip: Removes current snippet from jumplist
+- `<Plug>luasnip-expand-or-jump` → `<function>` - LuaSnip: Expand or jump in the current snippet
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
+- `<Plug>luasnip-expand-snippet` → `<function>` - LuaSnip: Expand the current snippet
+- `<Plug>luasnip-jump-next` → `<function>` - LuaSnip: Jump to the next node
+- `<Plug>luasnip-jump-prev` → `<function>` - LuaSnip: Jump to the previous node
+- `<Plug>luasnip-next-choice` → `<function>` - LuaSnip: Change to the next choice from the choiceNode
+- `<Plug>luasnip-prev-choice` → `<function>` - LuaSnip: Change to the previous choice from the choiceNode
+- `<S-Tab>` → `<function>` - vim.snippet.jump if active, otherwise <S-Tab>
+- `<Tab>` → `empty(get(g:, 'copilot_no_tab_map')) ? copilot#Accept() : "\t"`
+- `j` → `<function>`
+- `k` → `<function>`
+
+## Visual Mode (v)
+
+- ` /` → `gc` - Toggle comment
+- ` ccA` → `<Cmd>CopilotChatCodeAgent<CR>` - Code Review Agent
+- ` ccD` → `<Cmd>CopilotChatFixDiagnostic<CR>` - Fix diagnostic
+- ` ccR` → `<Cmd>CopilotChatRefactorAgent<CR>` - Refactor Agent
+- ` ccV` → `:CopilotChatInPlace<CR>` - Chat in place
+- ` cca` → `<Cmd>CopilotChatAgent<CR>` - General AI Agent
+- ` ccb` → `<Cmd>CopilotChatDebugAgent<CR>` - Debug Agent
+- ` ccd` → `<Cmd>CopilotChatDocs<CR>` - Generate docs
+- ` cce` → `<Cmd>CopilotChatExplain<CR>` - Explain code
+- ` ccf` → `<Cmd>CopilotChatFix<CR>` - Fix code
+- ` cco` → `<Cmd>CopilotChatOptimize<CR>` - Optimize code
+- ` ccr` → `<Cmd>CopilotChatReview<CR>` - Review code
+- ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
+- ` ccv` → `:CopilotChatVisual<CR>` - Chat with visual selection
+- ` dE` → `<function>` - Evaluate Input
+- ` gB` → `<function>` - Git Browse
+- ` go` → `<function>` - Git browse (open)
+- ` sw` → `<function>` - Visual selection or word
+- `#` → `<function>` - :help v_#-default
+- `%` → `<Plug>(MatchitVisualForward)`
+- `*` → `<function>` - :help v_star-default
+- `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
+- `<LeftMouse>` → `<function>`
+- `<M-i>` → `<function>`
+- `<Plug>(MatchitVisualBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv```
+- `<Plug>(MatchitVisualForward)` → `:<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") | exe ":normal! m'" | endif<CR>gv```
+- `<Plug>(MatchitVisualMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv```
+- `<Plug>(MatchitVisualMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv```
+- `<Plug>(MatchitVisualTextObject)` → `<Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)`
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `<Plug>luasnip-expand-or-jump` → `<function>` - LuaSnip: Expand or jump in the current snippet
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
+- `<Plug>luasnip-expand-snippet` → `<function>` - LuaSnip: Expand the current snippet
+- `<Plug>luasnip-jump-next` → `<function>` - LuaSnip: Jump to the next node
+- `<Plug>luasnip-jump-prev` → `<function>` - LuaSnip: Jump to the previous node
+- `<Plug>luasnip-next-choice` → `<function>` - LuaSnip: Change to the next choice from the choiceNode
+- `<Plug>luasnip-prev-choice` → `<function>` - LuaSnip: Change to the previous choice from the choiceNode
+- `<S-Tab>` → `<lt>gv` - Unindent line
+- `<Tab>` → `>gv` - Indent line
+- `@` → `mode() ==# 'V' ? ':normal! @'.getcharstr().'<CR>' : '@'` - :help v_@-default
+- `Q` → `mode() ==# 'V' ? ':normal! @<C-R>=reg_recorded()<CR><CR>' : 'Q'` - :help v_Q-default
+- `[%` → `<Plug>(MatchitVisualMultiBackward)`
+- `[i` → `<function>` - jump to top edge of scope
+- `]%` → `<Plug>(MatchitVisualMultiForward)`
+- `]i` → `<function>` - jump to bottom edge of scope
+- `a%` → `<Plug>(MatchitVisualTextObject)`
+- `ai` → `<function>` - full scope
+- `g%` → `<Plug>(MatchitVisualBackward)`
+- `gc` → `<function>` - Toggle comment
+- `gra` → `<function>` - vim.lsp.buf.code_action()
+- `gx` → `<function>` - Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
+- `ii` → `<function>` - inner scope
+- `j` → `v:count == 0 ? 'gj' : 'j'` - Move cursor down
+- `k` → `v:count == 0 ? 'gk' : 'k'` - Move cursor up
+- `mA` → `<function>`
+- `mB` → `<function>`
+- `mC` → `<function>`
+- `mD` → `<function>`
+- `mE` → `<function>`
+- `mF` → `<function>`
+- `mG` → `<function>`
+- `mH` → `<function>`
+- `mI` → `<function>`
+- `mJ` → `<function>`
+- `mK` → `<function>`
+- `mL` → `<function>`
+- `mM` → `<function>`
+- `mN` → `<function>`
+- `mO` → `<function>`
+- `mP` → `<function>`
+- `mQ` → `<function>`
+- `mR` → `<function>`
+- `mS` → `<function>`
+- `mT` → `<function>`
+- `mU` → `<function>`
+- `mV` → `<function>`
+- `mW` → `<function>`
+- `mX` → `<function>`
+- `mY` → `<function>`
+- `mZ` → `<function>`
+- `ma` → `<function>`
+- `mb` → `<function>`
+- `mc` → `<function>`
+- `md` → `<function>`
+- `me` → `<function>`
+- `mf` → `<function>`
+- `mg` → `<function>`
+- `mh` → `<function>`
+- `mi` → `<function>`
+- `mj` → `<function>`
+- `mk` → `<function>`
+- `ml` → `<function>`
+- `mm` → `<function>`
+- `mn` → `<function>`
+- `mo` → `<function>`
+- `mp` → `<function>`
+- `mq` → `<function>`
+- `mr` → `<function>`
+- `ms` → `<function>`
+- `mt` → `<function>`
+- `mu` → `<function>`
+- `mv` → `<function>`
+- `mw` → `<function>`
+- `mx` → `<function>`
+- `my` → `<function>`
+- `mz` → `<function>`
+
+## Visual Block Mode (x)
+
+- ` /` → `gc` - Toggle comment
+- ` ccA` → `<Cmd>CopilotChatCodeAgent<CR>` - Code Review Agent
+- ` ccD` → `<Cmd>CopilotChatFixDiagnostic<CR>` - Fix diagnostic
+- ` ccR` → `<Cmd>CopilotChatRefactorAgent<CR>` - Refactor Agent
+- ` ccV` → `:CopilotChatInPlace<CR>` - Chat in place
+- ` cca` → `<Cmd>CopilotChatAgent<CR>` - General AI Agent
+- ` ccb` → `<Cmd>CopilotChatDebugAgent<CR>` - Debug Agent
+- ` ccd` → `<Cmd>CopilotChatDocs<CR>` - Generate docs
+- ` cce` → `<Cmd>CopilotChatExplain<CR>` - Explain code
+- ` ccf` → `<Cmd>CopilotChatFix<CR>` - Fix code
+- ` cco` → `<Cmd>CopilotChatOptimize<CR>` - Optimize code
+- ` ccr` → `<Cmd>CopilotChatReview<CR>` - Review code
+- ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
+- ` ccv` → `:CopilotChatVisual<CR>` - Chat with visual selection
+- ` dE` → `<function>` - Evaluate Input
+- ` gB` → `<function>` - Git Browse
+- ` go` → `<function>` - Git browse (open)
+- ` sw` → `<function>` - Visual selection or word
+- `#` → `<function>` - :help v_#-default
+- `%` → `<Plug>(MatchitVisualForward)`
+- `*` → `<function>` - :help v_star-default
+- `<LeftMouse>` → `<function>`
+- `<M-i>` → `<function>`
+- `<Plug>(MatchitVisualBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv```
+- `<Plug>(MatchitVisualForward)` → `:<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") | exe ":normal! m'" | endif<CR>gv```
+- `<Plug>(MatchitVisualMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv```
+- `<Plug>(MatchitVisualMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv```
+- `<Plug>(MatchitVisualTextObject)` → `<Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)`
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
+- `<S-Tab>` → `<lt>gv` - Unindent line
+- `<Tab>` → `>gv` - Indent line
+- `@` → `mode() ==# 'V' ? ':normal! @'.getcharstr().'<CR>' : '@'` - :help v_@-default
+- `Q` → `mode() ==# 'V' ? ':normal! @<C-R>=reg_recorded()<CR><CR>' : 'Q'` - :help v_Q-default
+- `[%` → `<Plug>(MatchitVisualMultiBackward)`
+- `[i` → `<function>` - jump to top edge of scope
+- `]%` → `<Plug>(MatchitVisualMultiForward)`
+- `]i` → `<function>` - jump to bottom edge of scope
+- `a%` → `<Plug>(MatchitVisualTextObject)`
+- `ai` → `<function>` - full scope
+- `g%` → `<Plug>(MatchitVisualBackward)`
+- `gc` → `<function>` - Toggle comment
+- `gra` → `<function>` - vim.lsp.buf.code_action()
+- `gx` → `<function>` - Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
+- `ii` → `<function>` - inner scope
+- `j` → `v:count == 0 ? 'gj' : 'j'` - Move cursor down
+- `k` → `v:count == 0 ? 'gk' : 'k'` - Move cursor up
+- `mA` → `<function>`
+- `mB` → `<function>`
+- `mC` → `<function>`
+- `mD` → `<function>`
+- `mE` → `<function>`
+- `mF` → `<function>`
+- `mG` → `<function>`
+- `mH` → `<function>`
+- `mI` → `<function>`
+- `mJ` → `<function>`
+- `mK` → `<function>`
+- `mL` → `<function>`
+- `mM` → `<function>`
+- `mN` → `<function>`
+- `mO` → `<function>`
+- `mP` → `<function>`
+- `mQ` → `<function>`
+- `mR` → `<function>`
+- `mS` → `<function>`
+- `mT` → `<function>`
+- `mU` → `<function>`
+- `mV` → `<function>`
+- `mW` → `<function>`
+- `mX` → `<function>`
+- `mY` → `<function>`
+- `mZ` → `<function>`
+- `ma` → `<function>`
+- `mb` → `<function>`
+- `mc` → `<function>`
+- `md` → `<function>`
+- `me` → `<function>`
+- `mf` → `<function>`
+- `mg` → `<function>`
+- `mh` → `<function>`
+- `mi` → `<function>`
+- `mj` → `<function>`
+- `mk` → `<function>`
+- `ml` → `<function>`
+- `mm` → `<function>`
+- `mn` → `<function>`
+- `mo` → `<function>`
+- `mp` → `<function>`
+- `mq` → `<function>`
+- `mr` → `<function>`
+- `ms` → `<function>`
+- `mt` → `<function>`
+- `mu` → `<function>`
+- `mv` → `<function>`
+- `mw` → `<function>`
+- `mx` → `<function>`
+- `my` → `<function>`
+- `mz` → `<function>`
+
+## Command Mode (c)
+
+- `<C-E>` → `<function>` - blink.cmp
+- `<C-N>` → `<function>` - blink.cmp
+- `<C-P>` → `<function>` - blink.cmp
+- `<C-Space>` → `<function>` - blink.cmp
+- `<C-Y>` → `<function>` - blink.cmp
+- `<End>` → `<function>` - blink.cmp
+- `<Left>` → `<function>` - blink.cmp
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `<Plug>luasnip-delete-check` → `<function>` - LuaSnip: Removes current snippet from jumplist
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
+- `<Right>` → `<function>` - blink.cmp
+- `<S-Tab>` → `<function>` - blink.cmp
+- `<Tab>` → `<function>` - blink.cmp
+
+## Terminal Mode (t)
+
+- `<C-'>` → `<Cmd>ToggleTerm<CR>` - Toggle terminal
+- `<C-H>` → `<function>` - Terminal left window navigation
+- `<C-K>` → `<function>` - Terminal up window navigation
+- `<C-L>` → `<function>` - Terminal right window navigation
+- `<F7>` → `<Cmd>ToggleTerm<CR>` - Toggle terminal
+- `<NL>` → `<function>` - Terminal down window navigation
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `[[` → `<function>` - Prev Reference
+- `]]` → `<function>` - Next Reference
+
+## Operator Pending Mode (o)
+
+- `%` → `<Plug>(MatchitOperationForward)`
+- `<LeftMouse>` → `<function>`
+- `<M-i>` → `<function>`
+- `<Plug>(MatchitOperationBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'o')<CR>`
+- `<Plug>(MatchitOperationForward)` → `:<C-U>call matchit#Match_wrapper('',1,'o')<CR>`
+- `<Plug>(MatchitOperationMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "o")<CR>`
+- `<Plug>(MatchitOperationMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "o")<CR>`
+- `<Plug>luasnip-expand-repeat → `<function>` - LuaSnip: Repeat last node expansion
+- `[%` → `<Plug>(MatchitOperationMultiBackward)`
+- `[i` → `<function>` - jump to top edge of scope
+- `]%` → `<Plug>(MatchitOperationMultiForward)`
+- `]i` → `<function>` - jump to bottom edge of scope
+- `ai` → `<function>` - full scope
+- `g%` → `<Plug>(MatchitOperationBackward)`
+- `gc` → `<function>` - Comment textobject
+- `ii` → `<function>` - inner scope
+
+## Select Mode (s)
+
+- ` ccA` → `<Cmd>CopilotChatCodeAgent<CR>` - Code Review Agent
+- ` ccD` → `<Cmd>CopilotChatFixDiagnostic<CR>` - Fix diagnostic
+- ` ccR` → `<Cmd>CopilotChatRefactorAgent<CR>` - Refactor Agent
+- ` cca` → `<Cmd>CopilotChatAgent<CR>` - General AI Agent
+- ` ccb` → `<Cmd>CopilotChatDebugAgent<CR>` - Debug Agent
+- ` ccd` → `<Cmd>CopilotChatDocs<CR>` - Generate docs
+- ` cce` → `<Cmd>CopilotChatExplain<CR>` - Explain code
+- ` ccf` → `<Cmd>CopilotChatFix<CR>` - Fix code
+- ` cco` → `<Cmd>CopilotChatOptimize<CR>` - Optimize code
+- ` ccr` → `<Cmd>CopilotChatReview<CR>` - Review code
+- ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
+- ` dE` → `<function>` - Evaluate Input
+- ` gB` → `<function>` - Git Browse
+- `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
+- `<LeftMouse>` → `<function>`
+- `<Plug>BlinkCmpDotRepeatHack` → `<function>`
+- `<Plug>luasnip-expand-or-jump` → `<function>` - LuaSnip: Expand or jump in the current snippet
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
+- `<Plug>luasnip-expand-snippet` → `<function>` - LuaSnip: Expand the current snippet
+- `<Plug>luasnip-jump-next` → `<function>` - LuaSnip: Jump to the next node
+- `<Plug>luasnip-jump-prev` → `<function>` - LuaSnip: Jump to the previous node
+- `<Plug>luasnip-next-choice` → `<function>` - LuaSnip: Change to the next choice from the choiceNode
+- `<Plug>luasnip-prev-choice` → `<function>` - LuaSnip: Change to the previous choice from the choiceNode
+- `<S-Tab>` → `<lt>gv` - Unindent line
+- `<Tab>` → `>gv` - Indent line

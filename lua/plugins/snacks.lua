@@ -5,8 +5,8 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
-    dashboard = { enabled = true },
-    explorer = { enabled = true },
+    -- dashboard = { enabled = true },
+    -- explorer = { enabled = true },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {
@@ -29,7 +29,7 @@ return {
     -- Top Pickers & Explorer
     { "<leader><space>", function() require("snacks").picker.smart() end, desc = "Smart Find Files" },
     { "<leader>,", function() require("snacks").picker.buffers() end, desc = "Buffers" },
-    { "<leader>/", function() require("snacks").picker.grep() end, desc = "Grep" },
+   -- { "<leader>/", function() require("snacks").picker.grep() end, desc = "Grep" },
     { "<leader>:", function() require("snacks").picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() require("snacks").picker.notifications() end, desc = "Notification History" },
     { "<leader>e", function() require("snacks").explorer() end, desc = "File Explorer" },
@@ -119,7 +119,7 @@ return {
   },
   config = function(_, opts)
     require("snacks").setup(opts)
-    
+
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
       callback = function()
