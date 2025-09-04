@@ -81,6 +81,14 @@ local function save_session()
     return false
   end
   
+  -- Close neo-tree before saving session
+  if package.loaded["neo-tree"] then
+    local ok, neo_tree = pcall(require, "neo-tree.command")
+    if ok then
+      neo_tree.execute({ action = "close" })
+    end
+  end
+
   -- Close temporary windows before saving
   close_temp_windows()
   

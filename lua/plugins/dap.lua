@@ -3,7 +3,10 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
+      "AstroNvim/astrocore",
       "leoluz/nvim-dap-go", -- Only add Go-specific adapter
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
     },
     config = function()
       local dap = require("dap")
@@ -12,26 +15,8 @@ return {
       -- ┌────────────────────────────────────┐
       -- │           DAP UI Setup             │
       -- └────────────────────────────────────┘
-      dapui.setup({
-        layouts = {
-          {
-            position = "left",
-            size = 40,
-            elements = {
-              { id = "scopes", size = 0.4 },
-              { id = "breakpoints", size = 0.2 },
-              { id = "stacks", size = 0.4 },
-            },
-          },
-          {
-            position = "bottom",
-            size = 12,
-            elements = {
-              { id = "console", size = 1.0 },
-            },
-          },
-        },
-      })
+      dapui.setup()
+      
 
       -- ┌────────────────────────────────────┐
       -- │     Virtual Text (Inline Values)   │
@@ -69,7 +54,6 @@ return {
           program = ".",
         },
       }
-
       -- ┌────────────────────────────────────┐
       -- │            Keymaps                 │
       -- └────────────────────────────────────┘
@@ -100,7 +84,9 @@ return {
         ["<leader>d"] = { name = "Debug" },
       })
 
-      require("astronvim.utils").set_mappings("n", keymaps)
+      for _, keymap in ipairs(keymaps) do
+        vim.keymap.set(keymap[1], keymap[2], keymap[3], keymap[4])
+      end
 
       -- ┌────────────────────────────────────┐
       -- │      Auto Open/Close DAP UI        │

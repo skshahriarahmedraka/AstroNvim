@@ -16,7 +16,7 @@ vim.opt.updatetime = 250 -- Try 250 or 100. 100 is very responsive, might be too
 -- Consider if you *really* need autosave on every keystroke.
 vim.api.nvim_create_autocmd({
   "InsertLeave",
-  "TextChanged",
+  -- "TextChanged",
   -- "CursorHold",
   -- "CursorHoldI",
   "TextChanged",
@@ -67,19 +67,18 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-
 -- local session = require "user.session"
 -- session.setup()
-require("user.session").setup({
-  debug = true,           -- Enable to troubleshoot
-  auto_save = true,       
-  auto_restore = true,    
-  delay_ms = 150,         -- This is now ignored in favor of VimEnter
-})
+require("user.session").setup {
+  debug = true, -- Enable to troubleshoot
+  auto_save = true,
+  auto_restore = true,
+  delay_ms = 150, -- This is now ignored in favor of VimEnter
+}
 
 -- Patch for astroui statusline error
 pcall(function()
-  local status_config = require("astroui.status.config")
+  local status_config = require "astroui.status.config"
   if status_config then
     status_config.buf_name = function(self)
       if not self.bufnr or not vim.api.nvim_buf_is_valid(self.bufnr) then return "[No Name]" end
@@ -89,6 +88,3 @@ pcall(function()
     end
   end
 end)
-
-
-

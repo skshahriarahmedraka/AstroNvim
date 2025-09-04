@@ -1,23 +1,12 @@
 # AstroVim Keymap Export
-Generated on: 2025-08-30 11:26:10
+Generated on: 2025-09-04 12:13:40
 
-- command used to generate this file:
-``` lua
-lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't', 'o', 's'} local output = {} table.insert(output, "# AstroVim Keymap Export") table.insert(output, "Generated on: " .. os.date("%Y-%m-%d %H:%M:%S")) table.insert(output, "") for _, mode in ipairs(modes) do local mode_name = { n = "Normal", i = "Insert", v = "Visual", x = "Visual Block", c = "Command", t = "Terminal", o = "Operator Pending", s = "Select" } table.insert(output, "## " .. mode_name[mode] .. " Mode (" .. mode .. ")") table.insert(output, "") local keymaps = vim.api.nvim_get_keymap(mode) table.sort(keymaps, function(a, b) return a.lhs < b.lhs end) for _, keymap in ipairs(keymaps) do local desc = keymap.desc or "" local rhs = keymap.rhs or keymap.callback and "<function>" or "" local line = string.format("- `%s` → `%s`", keymap.lhs, rhs) if desc ~= "" then line = line .. " - " .. desc end table.insert(output, line) end table.insert(output, "") end local filename = vim.fn.stdpath('config') .. '/keymap_export.md' local file = io.open(filename, 'w') if file then file:write(table.concat(output, '\n')) file:close() print("Keymaps exported to: " .. filename) else print("Error: Could not write to file") for _, line in ipairs(output) do print(line) end end end export_keymaps()
-
-```
 ## Normal Mode (n)
 
-- `  ` → `<function>` - Smart Find Files
-- ` ,` → `<function>` - Buffers
-- ` .` → `<function>` - Toggle Scratch Buffer
-- ` /` → `<function>` - Grep
-- ` :` → `<function>` - Command History
+- ` /` → `gcc` - Toggle comment line
 - ` C` → `<function>` - Force close buffer
-- ` N` → `<function>` - Neovim News
 - ` Q` → `<Cmd>confirm qall<CR>` - Exit AstroNvim
 - ` R` → `<function>` - Rename file
-- ` S` → `<function>` - Select Scratch Buffer
 - ` S.` → `<function>` - Load current dirsession
 - ` SD` → `<function>` - Delete a dirsession
 - ` SF` → `<function>` - Load a dirsession
@@ -27,7 +16,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` Sl` → `<function>` - Load last session
 - ` Ss` → `<function>` - Save this session
 - ` St` → `<function>` - Save this tab's session
-- ` Z` → `<function>` - Toggle Zoom
 - ` bC` → `<function>` - Close all buffers
 - ` b\` → `<function>` - Horizontal split buffer from tabline
 - ` bb` → `<Cmd>BufferOrderByBufferNumber<CR>`
@@ -44,7 +32,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` bw` → `<Cmd>BufferOrderByWindowNumber<CR>`
 - ` b|` → `<function>` - Vertical split buffer from tabline
 - ` c` → `<function>` - Close buffer
-- ` cR` → `<function>` - Rename File
 - ` ccA` → `<Cmd>CopilotChatCodeAgent<CR>` - Code Review Agent
 - ` ccD` → `<Cmd>CopilotChatFixDiagnostic<CR>` - Fix diagnostic
 - ` ccM` → `<Cmd>CopilotChatCommitStaged<CR>` - Generate commit message for staged
@@ -79,7 +66,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` dr` → `<function>` - Restart (C-F5)
 - ` ds` → `<function>` - Run To Cursor
 - ` du` → `<function>` - Toggle Debugger UI
-- ` e` → `<function>` - File Explorer
+- ` e` → `<Cmd>Neotree toggle<CR>` - Toggle Explorer
 - ` f'` → `<function>` - Find marks
 - ` f<CR>` → `<function>` - Resume previous search
 - ` fC` → `<function>` - Find commands
@@ -88,18 +75,18 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` fT` → `<Cmd>TodoTelescope<CR>` - Find TODOs
 - ` fW` → `<function>` - Find words in all files
 - ` fa` → `<function>` - Find AstroNvim config files
-- ` fb` → `<function>` - Buffers
-- ` fc` → `<function>` - Find Config File
-- ` ff` → `<function>` - Find Files
-- ` fg` → `<function>` - Find Git Files
+- ` fb` → `<function>` - Find buffers
+- ` fc` → `<function>` - Find word under cursor
+- ` ff` → `<function>` - Find files
+- ` fg` → `<function>` - Find git files
 - ` fh` → `<function>` - Find help
 - ` fk` → `<function>` - Find keymaps
 - ` fl` → `<function>` - Find lines
 - ` fm` → `<function>` - Find man
 - ` fn` → `<function>` - Find notifications
 - ` fo` → `<function>` - Find old files
-- ` fp` → `<function>` - Projects
-- ` fr` → `<function>` - Recent
+- ` fp` → `<function>` - Find projects
+- ` fr` → `<function>` - Find registers
 - ` fs` → `<function>` - Find buffers/recent/files
 - ` ft` → `<function>` - Find themes
 - ` fu` → `<function>` - Find undo history
@@ -110,7 +97,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` gD` → `<Cmd>Gdiffsplit HEAD<CR>` - Git diff HEAD
 - ` gL` → `<Cmd>Git log<CR>` - Git log detailed
 - ` gP` → `<Cmd>Git pull<CR>` - Git pull
-- ` gS` → `<function>` - Git Stash
 - ` gT` → `<function>` - Git stash
 - ` ga` → `<Cmd>Git add %<CR>` - Git add current file
 - ` gb` → `<function>` - Git branches
@@ -118,8 +104,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` gcb` → `<Cmd>Git checkout -b ` - Git checkout new branch
 - ` gco` → `<Cmd>Git checkout ` - Git checkout
 - ` gd` → `<Cmd>Gdiffsplit<CR>` - Git diff split
-- ` gf` → `<function>` - Git Log File
-- ` gg` → `<function>` - Lazygit
+- ` gg` → `<function>` - ToggleTerm lazygit
 - ` gh` → `<function>` - File history
 - ` gl` → `<Cmd>Git log --oneline<CR>` - Git log
 - ` gm` → `<Cmd>Git merge ` - Git merge
@@ -136,7 +121,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` lS` → `<function>` - Symbols outline
 - ` ld` → `<function>` - Hover diagnostics
 - ` ls` → `<function>` - Search symbols
-- ` n` → `<function>` - Notification History
+- ` n` → `<Cmd>enew<CR>` - New File
 - ` o` → `<function>` - Toggle Explorer Focus
 - ` pM` → `<Cmd>MasonToolsUpdate<CR>` - Mason Update
 - ` pS` → `<function>` - Plugins Sync
@@ -147,31 +132,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` ps` → `<function>` - Plugins Status
 - ` pu` → `<function>` - Plugins Check Updates
 - ` q` → `<Cmd>confirm q<CR>` - Quit Window
-- ` s"` → `<function>` - Registers
-- ` s/` → `<function>` - Search History
-- ` sB` → `<function>` - Grep Open Buffers
-- ` sC` → `<function>` - Commands
-- ` sD` → `<function>` - Buffer Diagnostics
-- ` sH` → `<function>` - Highlights
-- ` sM` → `<function>` - Man Pages
-- ` sR` → `<function>` - Resume
-- ` sS` → `<function>` - LSP Workspace Symbols
-- ` sa` → `<function>` - Autocmds
-- ` sb` → `<function>` - Buffer Lines
-- ` sc` → `<function>` - Command History
-- ` sd` → `<function>` - Diagnostics
-- ` sg` → `<function>` - Grep
-- ` sh` → `<function>` - Help Pages
-- ` si` → `<function>` - Icons
-- ` sj` → `<function>` - Jumps
-- ` sk` → `<function>` - Keymaps
-- ` sl` → `<function>` - Location List
-- ` sm` → `<function>` - Marks
-- ` sp` → `<function>` - Search for Plugin Spec
-- ` sq` → `<function>` - Quickfix List
-- ` ss` → `<function>` - LSP Symbols
-- ` su` → `<function>` - Undo History
-- ` sw` → `<function>` - Visual selection or word
 - ` tf` → `<Cmd>ToggleTerm direction=float<CR>` - ToggleTerm float
 - ` th` → `<Cmd>ToggleTerm size=10 direction=horizontal<CR>` - ToggleTerm horizontal split
 - ` tl` → `<function>` - ToggleTerm lazygit
@@ -180,45 +140,39 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` tv` → `<Cmd>ToggleTerm size=80 direction=vertical<CR>` - ToggleTerm vertical split
 - ` u>` → `<function>` - Toggle foldcolumn
 - ` uA` → `<function>` - Toggle rooter autochdir
-- ` uC` → `<function>` - Colorschemes
-- ` uD` → `<function>` - Toggle Dimming
-- ` uL` → `<function>` - Toggle Relative Number
+- ` uC` → `<function>` - Toggle autocompletion (global)
+- ` uD` → `<function>` - Dismiss notifications
 - ` uN` → `<function>` - Toggle Notifications
 - ` uR` → `<function>` - Toggle reference highlighting (global)
 - ` uS` → `<function>` - Toggle conceal
-- ` uT` → `<function>` - Toggle Treesitter Highlight
 - ` uV` → `<function>` - Toggle virtual lines
 - ` uZ` → `<function>` - Toggle zen mode
 - ` ua` → `<function>` - Toggle autopairs
-- ` ub` → `<function>` - Toggle Dark Background
-- ` uc` → `<function>` - Toggle conceallevel
-- ` ud` → `<function>` - Toggle Diagnostics
-- ` ug` → `<function>` - Toggle Indent Guides
-- ` uh` → `<function>` - Toggle Inlay Hints
+- ` ub` → `<function>` - Toggle background
+- ` uc` → `<function>` - Toggle autocompletion (buffer)
+- ` ud` → `<function>` - Toggle diagnostics
+- ` ug` → `<function>` - Toggle signcolumn
 - ` ui` → `<function>` - Change indent setting
-- ` ul` → `<function>` - Toggle Line Numbers
-- ` un` → `<function>` - Dismiss All Notifications
+- ` ul` → `<function>` - Toggle statusline
+- ` un` → `<function>` - Change line numbering
 - ` up` → `<function>` - Toggle paste mode
 - ` ur` → `<function>` - Toggle reference highlighting (buffer)
-- ` us` → `<function>` - Toggle Spelling
+- ` us` → `<function>` - Toggle spellcheck
 - ` ut` → `<function>` - Toggle tabline
 - ` uu` → `<function>` - Toggle URL highlight
 - ` uv` → `<function>` - Toggle virtual text
-- ` uw` → `<function>` - Toggle Wrap
+- ` uw` → `<function>` - Toggle wrap
 - ` uy` → `<function>` - Toggle syntax highlight (buffer)
 - ` uz` → `<function>` - Toggle color highlight
 - ` u|` → `<function>` - Toggle indent guides
 - ` w` → `<Cmd>w<CR>` - Save
 - ` xl` → `<Cmd>lopen<CR>` - Location List
 - ` xq` → `<Cmd>copen<CR>` - Quickfix List
-- ` z` → `<function>` - Toggle Zen Mode
 - `%` → `<Plug>(MatchitNormalForward)`
 - `&` → `:&&<CR>` - :help &-default
 - `<C-'>` → `<Cmd>execute v:count . "ToggleTerm"<CR>` - Toggle terminal
-- `<C-/>` → `<function>` - Toggle Terminal
 - `<C-Down>` → `<function>` - Resize split down
 - `<C-H>` → `<function>` - Move to left split
-- `<C-J>` → `<function>` - Move to below split
 - `<C-K>` → `<function>` - Move to above split
 - `<C-L>` → `<function>` - Move to right split
 - `<C-Left>` → `<function>` - Resize split left
@@ -229,7 +183,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `<C-Up>` → `<function>` - Resize split up
 - `<C-W><C-D>` → `<C-W>d` - Show diagnostics under the cursor
 - `<C-W>d` → `<function>` - Show diagnostics under the cursor
-- `<C-_>` → `<function>` - which_key_ignore
 - `<F10>` → `<function>` - Debugger: Step Over
 - `<F11>` → `<function>` - Debugger: Step Into
 - `<F17>` → `<function>` - Debugger: Stop
@@ -260,6 +213,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `<M-p>` → `<Cmd>BufferPin<CR>`
 - `<M-x>` → `<Cmd>BufferClose<CR>`
 - `<MouseMove>` → `<function>` - hover.nvim (mouse)
+- `<NL>` → `<function>` - Move to below split
 - `<Plug>(MatchitNormalBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'n')<CR>`
 - `<Plug>(MatchitNormalForward)` → `:<C-U>call matchit#Match_wrapper('',1,'n')<CR>`
 - `<Plug>(MatchitNormalMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>`
@@ -282,7 +236,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `[L` → `<function>` - :lrewind
 - `[Q` → `<function>` - :crewind
 - `[T` → `<function>` - Previous TODO comment
-- `[[` → `<function>` - Prev Reference
 - `[a` → `<function>` - :previous
 - `[b` → `<function>` - Previous buffer
 - `[d` → `<function>` - Jump to the previous diagnostic in the current buffer
@@ -305,7 +258,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `]L` → `<function>` - :llast
 - `]Q` → `<function>` - :clast
 - `]T` → `<function>` - Next TODO comment
-- `]]` → `<function>` - Next Reference
 - `]a` → `<function>` - :next
 - `]b` → `<function>` - Next buffer
 - `]d` → `<function>` - Jump to the next diagnostic in the current buffer
@@ -317,23 +269,18 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `]t` → `<function>` - Next tab
 - `]w` → `<function>` - Next warning
 - `g%` → `<Plug>(MatchitNormalBackward)`
-- `gD` → `<function>` - Goto Declaration
-- `gI` → `<function>` - Goto Implementation
 - `gO` → `<function>` - vim.lsp.buf.document_symbol()
 - `gc` → `<function>` - Toggle comment
 - `gcO` → `O<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>` - Add Comment Above
 - `gcc` → `<function>` - Toggle comment line
 - `gco` → `o<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>` - Add Comment Below
-- `gd` → `<function>` - Goto Definition
 - `gl` → `<function>` - Hover diagnostics
-- `gr` → `<function>` - References
 - `gra` → `<function>` - vim.lsp.buf.code_action()
 - `gri` → `<function>` - vim.lsp.buf.implementation()
 - `grn` → `<function>` - vim.lsp.buf.rename()
 - `grr` → `<function>` - vim.lsp.buf.references()
 - `grt` → `<function>` - vim.lsp.buf.type_definition()
 - `gx` → `<function>` - Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)
-- `gy` → `<function>` - Goto T[y]pe Definition
 - `j` → `v:count == 0 ? 'gj' : 'j'` - Move cursor down
 - `k` → `v:count == 0 ? 'gk' : 'k'` - Move cursor up
 - `mA` → `<function>`
@@ -442,9 +389,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
 - ` ccv` → `:CopilotChatVisual<CR>` - Chat with visual selection
 - ` dE` → `<function>` - Evaluate Input
-- ` gB` → `<function>` - Git Browse
 - ` go` → `<function>` - Git browse (open)
-- ` sw` → `<function>` - Visual selection or word
 - `#` → `<function>` - :help v_#-default
 - `%` → `<Plug>(MatchitVisualForward)`
 - `*` → `<function>` - :help v_star-default
@@ -551,9 +496,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
 - ` ccv` → `:CopilotChatVisual<CR>` - Chat with visual selection
 - ` dE` → `<function>` - Evaluate Input
-- ` gB` → `<function>` - Git Browse
 - ` go` → `<function>` - Git browse (open)
-- ` sw` → `<function>` - Visual selection or word
 - `#` → `<function>` - :help v_#-default
 - `%` → `<Plug>(MatchitVisualForward)`
 - `*` → `<function>` - :help v_star-default
@@ -661,8 +604,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `<F7>` → `<Cmd>ToggleTerm<CR>` - Toggle terminal
 - `<NL>` → `<function>` - Terminal down window navigation
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
-- `[[` → `<function>` - Prev Reference
-- `]]` → `<function>` - Next Reference
 
 ## Operator Pending Mode (o)
 
@@ -673,7 +614,7 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - `<Plug>(MatchitOperationForward)` → `:<C-U>call matchit#Match_wrapper('',1,'o')<CR>`
 - `<Plug>(MatchitOperationMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "o")<CR>`
 - `<Plug>(MatchitOperationMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "o")<CR>`
-- `<Plug>luasnip-expand-repeat → `<function>` - LuaSnip: Repeat last node expansion
+- `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
 - `[%` → `<Plug>(MatchitOperationMultiBackward)`
 - `[i` → `<function>` - jump to top edge of scope
 - `]%` → `<Plug>(MatchitOperationMultiForward)`
@@ -697,7 +638,6 @@ lua local function export_keymaps() local modes = {'n', 'i', 'v', 'x', 'c', 't',
 - ` ccr` → `<Cmd>CopilotChatReview<CR>` - Review code
 - ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
 - ` dE` → `<function>` - Evaluate Input
-- ` gB` → `<function>` - Git Browse
 - `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
 - `<LeftMouse>` → `<function>`
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
