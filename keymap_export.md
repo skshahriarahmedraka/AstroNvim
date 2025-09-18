@@ -1,9 +1,10 @@
 # AstroVim Keymap Export
-Generated on: 2025-09-04 12:13:40
+Generated on: 2025-09-16 15:08:07
 
 ## Normal Mode (n)
 
 - ` /` → `gcc` - Toggle comment line
+- ` ?` → `<function>` - Buffer Keymaps (which-key)
 - ` C` → `<function>` - Force close buffer
 - ` Q` → `<Cmd>confirm qall<CR>` - Exit AstroNvim
 - ` R` → `<function>` - Rename file
@@ -98,24 +99,24 @@ Generated on: 2025-09-04 12:13:40
 - ` gL` → `<Cmd>Git log<CR>` - Git log detailed
 - ` gP` → `<Cmd>Git pull<CR>` - Git pull
 - ` gT` → `<function>` - Git stash
-- ` ga` → `<Cmd>Git add %<CR>` - Git add current file
+- ` ga` → `<function>` - Git add current file
 - ` gb` → `<function>` - Git branches
-- ` gc` → `<Cmd>Git commit<CR>` - Git commit
+- ` gc` → `<function>` - Git commits (repository)
 - ` gcb` → `<Cmd>Git checkout -b ` - Git checkout new branch
 - ` gco` → `<Cmd>Git checkout ` - Git checkout
-- ` gd` → `<Cmd>Gdiffsplit<CR>` - Git diff split
+- ` gd` → `<function>` - Git diff split
 - ` gg` → `<function>` - ToggleTerm lazygit
-- ` gh` → `<function>` - File history
+- ` gh` → `<Cmd>DiffviewFileHistory %<CR>` - File history
 - ` gl` → `<Cmd>Git log --oneline<CR>` - Git log
 - ` gm` → `<Cmd>Git merge ` - Git merge
 - ` go` → `<function>` - Git browse (open)
-- ` gp` → `<Cmd>Git push<CR>` - Git push
-- ` gs` → `<Cmd>Git<CR>` - Git status
+- ` gp` → `<function>` - Git push
+- ` gs` → `<function>` - Git status
 - ` gsl` → `<Cmd>Git stash list<CR>` - Git stash list
 - ` gsp` → `<Cmd>Git stash pop<CR>` - Git stash pop
 - ` gss` → `<Cmd>Git stash<CR>` - Git stash
 - ` gt` → `<function>` - Git status
-- ` gv` → `<function>` - Open diffview
+- ` gv` → `<Cmd>DiffviewOpen<CR>` - Open diffview
 - ` h` → `<function>` - Home Screen
 - ` lD` → `<function>` - Search diagnostics
 - ` lS` → `<function>` - Symbols outline
@@ -181,8 +182,24 @@ Generated on: 2025-09-04 12:13:40
 - `<C-Right>` → `<function>` - Resize split right
 - `<C-S>` → `<Cmd>silent! update! | redraw<CR>` - Force write
 - `<C-Up>` → `<function>` - Resize split up
+- `<C-W> ` → `<function>` - Window Hydra Mode (which-key)
 - `<C-W><C-D>` → `<C-W>d` - Show diagnostics under the cursor
 - `<C-W>d` → `<function>` - Show diagnostics under the cursor
+- `<C-Y>,` → `<Plug>(emmet-expand-abbr)`
+- `<C-Y>/` → `<Plug>(emmet-toggle-comment)`
+- `<C-Y>;` → `<Plug>(emmet-expand-word)`
+- `<C-Y>A` → `<Plug>(emmet-anchorize-summary)`
+- `<C-Y>D` → `<Plug>(emmet-balance-tag-outword)`
+- `<C-Y>I` → `<Plug>(emmet-image-encode)`
+- `<C-Y>N` → `<Plug>(emmet-move-prev)`
+- `<C-Y>a` → `<Plug>(emmet-anchorize-url)`
+- `<C-Y>d` → `<Plug>(emmet-balance-tag-inward)`
+- `<C-Y>i` → `<Plug>(emmet-image-size)`
+- `<C-Y>j` → `<Plug>(emmet-split-join-tag)`
+- `<C-Y>k` → `<Plug>(emmet-remove-tag)`
+- `<C-Y>m` → `<Plug>(emmet-merge-lines)`
+- `<C-Y>n` → `<Plug>(emmet-move-next)`
+- `<C-Y>u` → `<Plug>(emmet-update-tag)`
 - `<F10>` → `<function>` - Debugger: Step Over
 - `<F11>` → `<function>` - Debugger: Step Into
 - `<F17>` → `<function>` - Debugger: Stop
@@ -218,6 +235,23 @@ Generated on: 2025-09-04 12:13:40
 - `<Plug>(MatchitNormalForward)` → `:<C-U>call matchit#Match_wrapper('',1,'n')<CR>`
 - `<Plug>(MatchitNormalMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>`
 - `<Plug>(MatchitNormalMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "n")<CR>`
+- `<Plug>(emmet-anchorize-summary)` → `:call emmet#anchorizeURL(1)<CR>`
+- `<Plug>(emmet-anchorize-url)` → `:call emmet#anchorizeURL(0)<CR>`
+- `<Plug>(emmet-balance-tag-inward)` → `:call emmet#balanceTag(1)<CR>`
+- `<Plug>(emmet-balance-tag-outword)` → `:call emmet#balanceTag(-1)<CR>`
+- `<Plug>(emmet-expand-abbr)` → `:call emmet#expandAbbr(3,"")<CR>`
+- `<Plug>(emmet-expand-word)` → `:call emmet#expandAbbr(1,"")<CR>`
+- `<Plug>(emmet-image-encode)` → `:call emmet#imageEncode()<CR>`
+- `<Plug>(emmet-image-size)` → `:call emmet#imageSize()<CR>`
+- `<Plug>(emmet-merge-lines)` → `:call emmet#mergeLines()<CR>`
+- `<Plug>(emmet-move-next)` → `:call emmet#moveNextPrev(0)<CR>`
+- `<Plug>(emmet-move-next-item)` → `:call emmet#moveNextPrevItem(0)<CR>`
+- `<Plug>(emmet-move-prev)` → `:call emmet#moveNextPrev(1)<CR>`
+- `<Plug>(emmet-move-prev-item)` → `:call emmet#moveNextPrevItem(1)<CR>`
+- `<Plug>(emmet-remove-tag)` → `:call emmet#removeTag()<CR>`
+- `<Plug>(emmet-split-join-tag)` → `:call emmet#splitJoinTag()<CR>`
+- `<Plug>(emmet-toggle-comment)` → `:call emmet#toggleComment()<CR>`
+- `<Plug>(emmet-update-tag)` → `:call emmet#updateTag()<CR>`
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
 - `<Plug>PlenaryTestFile` → `:lua require('plenary.test_harness').test_file(vim.fn.expand("%:p"))<CR>`
 - `<Plug>luasnip-delete-check` → `<function>` - LuaSnip: Removes current snippet from jumplist
@@ -343,6 +377,21 @@ Generated on: 2025-09-04 12:13:40
 - `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
 - `<C-U>` → `<C-G>u<C-U>` - :help i_CTRL-U-default
 - `<C-W>` → `<C-G>u<C-W>` - :help i_CTRL-W-default
+- `<C-Y>,` → `<Plug>(emmet-expand-abbr)`
+- `<C-Y>/` → `<Plug>(emmet-toggle-comment)`
+- `<C-Y>;` → `<Plug>(emmet-expand-word)`
+- `<C-Y>A` → `<Plug>(emmet-anchorize-summary)`
+- `<C-Y>D` → `<Plug>(emmet-balance-tag-outword)`
+- `<C-Y>I` → `<Plug>(emmet-image-encode)`
+- `<C-Y>N` → `<Plug>(emmet-move-prev)`
+- `<C-Y>a` → `<Plug>(emmet-anchorize-url)`
+- `<C-Y>d` → `<Plug>(emmet-balance-tag-inward)`
+- `<C-Y>i` → `<Plug>(emmet-image-size)`
+- `<C-Y>j` → `<Plug>(emmet-split-join-tag)`
+- `<C-Y>k` → `<Plug>(emmet-remove-tag)`
+- `<C-Y>m` → `<Plug>(emmet-merge-lines)`
+- `<C-Y>n` → `<Plug>(emmet-move-next)`
+- `<C-Y>u` → `<Plug>(emmet-update-tag)`
 - `<C-]>` → `copilot#Dismiss() . "\<C-]>"`
 - `<CR>` → `v:lua.require'nvim-autopairs'.completion_confirm()`
 - `<F7>` → `<Esc><Cmd>ToggleTerm<CR>` - Toggle terminal
@@ -358,6 +407,23 @@ Generated on: 2025-09-04 12:13:40
 - `<Plug>(copilot-next)` → `<Cmd>call copilot#Next()<CR>`
 - `<Plug>(copilot-previous)` → `<Cmd>call copilot#Previous()<CR>`
 - `<Plug>(copilot-suggest)` → `<Cmd>call copilot#Suggest()<CR>`
+- `<Plug>(emmet-anchorize-summary)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#anchorizeURL(1)<CR>`
+- `<Plug>(emmet-anchorize-url)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#anchorizeURL(0)<CR>`
+- `<Plug>(emmet-balance-tag-inward)` → `<Esc>:call emmet#balanceTag(1)<CR>`
+- `<Plug>(emmet-balance-tag-outword)` → `<Esc>:call emmet#balanceTag(-1)<CR>`
+- `<Plug>(emmet-expand-abbr)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#expandAbbr(0,"")<CR>`
+- `<Plug>(emmet-expand-word)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#expandAbbr(1,"")<CR>`
+- `<Plug>(emmet-image-encode)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#imageEncode()<CR>`
+- `<Plug>(emmet-image-size)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#imageSize()<CR>`
+- `<Plug>(emmet-merge-lines)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#mergeLines()<CR>`
+- `<Plug>(emmet-move-next)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#moveNextPrev(0)<CR>`
+- `<Plug>(emmet-move-next-item)` → `<Esc>:call emmet#moveNextPrevItem(0)<CR>`
+- `<Plug>(emmet-move-prev)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#moveNextPrev(1)<CR>`
+- `<Plug>(emmet-move-prev-item)` → `<Esc>:call emmet#moveNextPrevItem(1)<CR>`
+- `<Plug>(emmet-remove-tag)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#removeTag()<CR>`
+- `<Plug>(emmet-split-join-tag)` → `<Esc>:call emmet#splitJoinTag()<CR>`
+- `<Plug>(emmet-toggle-comment)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#toggleComment()<CR>`
+- `<Plug>(emmet-update-tag)` → `<C-R>=emmet#util#closePopup()<CR><C-R>=emmet#updateTag()<CR>`
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
 - `<Plug>luasnip-delete-check` → `<function>` - LuaSnip: Removes current snippet from jumplist
 - `<Plug>luasnip-expand-or-jump` → `<function>` - LuaSnip: Expand or jump in the current snippet
@@ -394,6 +460,10 @@ Generated on: 2025-09-04 12:13:40
 - `%` → `<Plug>(MatchitVisualForward)`
 - `*` → `<function>` - :help v_star-default
 - `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
+- `<C-Y>,` → `<Plug>(emmet-expand-abbr)`
+- `<C-Y>D` → `<Plug>(emmet-balance-tag-outword)`
+- `<C-Y>c` → `<Plug>(emmet-code-pretty)`
+- `<C-Y>d` → `<Plug>(emmet-balance-tag-inward)`
 - `<LeftMouse>` → `<function>`
 - `<M-i>` → `<function>`
 - `<Plug>(MatchitVisualBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv```
@@ -401,6 +471,10 @@ Generated on: 2025-09-04 12:13:40
 - `<Plug>(MatchitVisualMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv```
 - `<Plug>(MatchitVisualMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv```
 - `<Plug>(MatchitVisualTextObject)` → `<Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)`
+- `<Plug>(emmet-balance-tag-inward)` → `<Esc>:call emmet#balanceTag(1)<CR>`
+- `<Plug>(emmet-balance-tag-outword)` → `<Esc>:call emmet#balanceTag(-1)<CR>`
+- `<Plug>(emmet-code-pretty)` → `:call emmet#codePretty()<CR>`
+- `<Plug>(emmet-expand-abbr)` → `:call emmet#expandAbbr(2,"")<CR>`
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
 - `<Plug>luasnip-expand-or-jump` → `<function>` - LuaSnip: Expand or jump in the current snippet
 - `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
@@ -500,6 +574,10 @@ Generated on: 2025-09-04 12:13:40
 - `#` → `<function>` - :help v_#-default
 - `%` → `<Plug>(MatchitVisualForward)`
 - `*` → `<function>` - :help v_star-default
+- `<C-Y>,` → `<Plug>(emmet-expand-abbr)`
+- `<C-Y>D` → `<Plug>(emmet-balance-tag-outword)`
+- `<C-Y>c` → `<Plug>(emmet-code-pretty)`
+- `<C-Y>d` → `<Plug>(emmet-balance-tag-inward)`
 - `<LeftMouse>` → `<function>`
 - `<M-i>` → `<function>`
 - `<Plug>(MatchitVisualBackward)` → `:<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv```
@@ -507,6 +585,10 @@ Generated on: 2025-09-04 12:13:40
 - `<Plug>(MatchitVisualMultiBackward)` → `:<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv```
 - `<Plug>(MatchitVisualMultiForward)` → `:<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv```
 - `<Plug>(MatchitVisualTextObject)` → `<Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)`
+- `<Plug>(emmet-balance-tag-inward)` → `<Esc>:call emmet#balanceTag(1)<CR>`
+- `<Plug>(emmet-balance-tag-outword)` → `<Esc>:call emmet#balanceTag(-1)<CR>`
+- `<Plug>(emmet-code-pretty)` → `:call emmet#codePretty()<CR>`
+- `<Plug>(emmet-expand-abbr)` → `:call emmet#expandAbbr(2,"")<CR>`
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
 - `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion
 - `<S-Tab>` → `<lt>gv` - Unindent line
@@ -639,7 +721,15 @@ Generated on: 2025-09-04 12:13:40
 - ` cct` → `<Cmd>CopilotChatTests<CR>` - Generate tests
 - ` dE` → `<function>` - Evaluate Input
 - `<C-S>` → `<function>` - vim.lsp.buf.signature_help()
+- `<C-Y>,` → `<Plug>(emmet-expand-abbr)`
+- `<C-Y>D` → `<Plug>(emmet-balance-tag-outword)`
+- `<C-Y>c` → `<Plug>(emmet-code-pretty)`
+- `<C-Y>d` → `<Plug>(emmet-balance-tag-inward)`
 - `<LeftMouse>` → `<function>`
+- `<Plug>(emmet-balance-tag-inward)` → `<Esc>:call emmet#balanceTag(1)<CR>`
+- `<Plug>(emmet-balance-tag-outword)` → `<Esc>:call emmet#balanceTag(-1)<CR>`
+- `<Plug>(emmet-code-pretty)` → `:call emmet#codePretty()<CR>`
+- `<Plug>(emmet-expand-abbr)` → `:call emmet#expandAbbr(2,"")<CR>`
 - `<Plug>BlinkCmpDotRepeatHack` → `<function>`
 - `<Plug>luasnip-expand-or-jump` → `<function>` - LuaSnip: Expand or jump in the current snippet
 - `<Plug>luasnip-expand-repeat` → `<function>` - LuaSnip: Repeat last node expansion

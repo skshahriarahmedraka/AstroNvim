@@ -31,15 +31,20 @@
 -- }
 -- For `plugins/markview.lua` users.
 return {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
+  "OXY2DEV/markview.nvim",
+  lazy = false,
 
-   -- For `nvim-treesitter` users.
-    priority = 49,
+  -- For `nvim-treesitter` users.
+  priority = 49,
+  opts = {
+    experimental = {
+      check_rtp_message = false,
+    },
+  },
 
-    -- For blink.cmp's completion
-    -- source
-    -- dependencies = {
-    --     "saghen/blink.cmp"
-    -- },
+  -- For blink.cmp's completion
+  -- source
+  -- dependencies = {
+  --     "saghen/blink.cmp"
+  -- },
 };
