@@ -28,6 +28,7 @@ return {
           "typescript",
           "json",
           "yaml",
+          "zig",
         },
         ignore_filetypes = { -- disable format on save for specified filetypes
           -- Add filetypes you don't want to auto-format
@@ -76,6 +77,7 @@ return {
     -- enable servers that you already have installed without mason
     servers = {
       -- "pyright"
+      zls = {},
     },
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields

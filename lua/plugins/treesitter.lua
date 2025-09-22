@@ -24,6 +24,7 @@ return {
       "svelte",
       "json",
       "yaml",
+      "zig",
       -- "rust",
       -- "ron",
     },

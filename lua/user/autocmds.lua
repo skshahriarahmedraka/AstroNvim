@@ -10,3 +10,11 @@ vim.api.nvim_create_autocmd("User", {
     vim.cmd("TSBufEnable highlight")
   end,
 })
+
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  group = augroup("auto_treesitter_refresh"),
+  pattern = "*",
+  callback = function()
+    vim.cmd("TSBufEnable highlight")
+  end,
+})

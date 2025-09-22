@@ -1,0 +1,599 @@
+# AstroVim Keymaps
+
+Generated on: Sat 20 Sep 2025 02:38:48 PM +06
+
+## Terminal Mode
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| `<NL>` | `` | Terminal down window navigation |
+| `<C-H>` | `` | Terminal left window navigation |
+| `<C-L>` | `` | Terminal right window navigation |
+| `<F7>` | `<Cmd>ToggleTerm<CR>` | Toggle terminal |
+| `<C-'>` | `<Cmd>ToggleTerm<CR>` | Toggle terminal |
+| `<C-K>` | `` | Terminal up window navigation |
+
+## Command Mode
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| `<C-P>` | `` | blink.cmp |
+| `<Right>` | `` | blink.cmp |
+| `<Left>` | `` | blink.cmp |
+| `<C-Space>` | `` | blink.cmp |
+| `<End>` | `` | blink.cmp |
+| `<C-E>` | `` | blink.cmp |
+| `<C-Y>` | `` | blink.cmp |
+| `<C-N>` | `` | blink.cmp |
+| `<S-Tab>` | `` | blink.cmp |
+| `<Plug>(TelescopeFuzzyCommandSearch)` | `<C-\>e "lua require('telescope.builtin').command_history { default_text = [=[" . escape(getcmdline(), '"') . "]=] }"<CR><CR>` |  |
+| `<Tab>` | `` | blink.cmp |
+
+## Insert Mode
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| `<M-C-Right>` | `<Plug>(copilot-accept-line)` |  |
+| `<M-Right>` | `<Plug>(copilot-accept-word)` |  |
+| `<M-Bslash>` | `<Plug>(copilot-suggest)` |  |
+| `<M-[>` | `<Plug>(copilot-previous)` |  |
+| `<M-]>` | `<Plug>(copilot-next)` |  |
+| `<Plug>(copilot-accept-line)` | `copilot#AcceptLine()` |  |
+| `<Plug>(copilot-accept-word)` | `copilot#AcceptWord()` |  |
+| `<Plug>(copilot-suggest)` | `<Cmd>call copilot#Suggest()<CR>` |  |
+| `<Plug>(copilot-previous)` | `<Cmd>call copilot#Previous()<CR>` |  |
+| `<Plug>(copilot-next)` | `<Cmd>call copilot#Next()<CR>` |  |
+| `<C-]>` | `copilot#Dismiss() . "\<C-]>"` |  |
+| `<Plug>(copilot-dismiss)` | `<Cmd>call copilot#Dismiss()<CR>` |  |
+| `<LeftMouse>` | `` |  |
+| `<F7>` | `<Esc><Cmd>ToggleTerm<CR>` | Toggle terminal |
+| `<C-'>` | `<Esc><Cmd>ToggleTerm<CR>` | Toggle terminal |
+| `<S-Tab>` | `` | vim.snippet.jump if active, otherwise <S-Tab> |
+| `<C-S>` | `` | vim.lsp.buf.signature_help() |
+| `<C-W>` | `<C-G>u<C-W>` | :help i_CTRL-W-default |
+| `<C-U>` | `<C-G>u<C-U>` | :help i_CTRL-U-default |
+| `<Tab>` | `empty(get(g:, 'copilot_no_tab_map')) ? copilot#Accept() : "\t"` |  |
+| `<CR>` | `v:lua.require'nvim-autopairs'.completion_confirm()` |  |
+| `j` | `` |  |
+| `k` | `` |  |
+
+## Visual Block Mode
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| `<Tab>` | `>gv` | Indent line |
+| ` cca` | `<Cmd>CopilotChatAgent<CR>` | General AI Agent |
+| ` ccD` | `<Cmd>CopilotChatFixDiagnostic<CR>` | Fix diagnostic |
+| ` cct` | `<Cmd>CopilotChatTests<CR>` | Generate tests |
+| ` ccd` | `<Cmd>CopilotChatDocs<CR>` | Generate docs |
+| ` cco` | `<Cmd>CopilotChatOptimize<CR>` | Optimize code |
+| ` ccf` | `<Cmd>CopilotChatFix<CR>` | Fix code |
+| ` ccr` | `<Cmd>CopilotChatReview<CR>` | Review code |
+| ` cce` | `<Cmd>CopilotChatExplain<CR>` | Explain code |
+| ` ccV` | `:CopilotChatInPlace<CR>` | Chat in place |
+| ` ccv` | `:CopilotChatVisual<CR>` | Chat with visual selection |
+| ` ccR` | `<Cmd>CopilotChatRefactorAgent<CR>` | Refactor Agent |
+| ` ccb` | `<Cmd>CopilotChatDebugAgent<CR>` | Debug Agent |
+| ` ccA` | `<Cmd>CopilotChatCodeAgent<CR>` | Code Review Agent |
+| ` dE` | `` | Evaluate Input |
+| ` go` | `` | Git browse (open) |
+| ` /` | `gc` | Toggle comment |
+| `#` | `` | :help v_#-default |
+| `%` | `<Plug>(MatchitVisualForward)` |  |
+| `*` | `` | :help v_star-default |
+| `@` | `mode() ==# 'V' ? ':normal! @'.getcharstr().'<CR>' : '@'` | :help v_@-default |
+| `Q` | `mode() ==# 'V' ? ':normal! @<C-R>=reg_recorded()<CR><CR>' : 'Q'` | :help v_Q-default |
+| `[i` | `` | jump to top edge of scope |
+| `[%` | `<Plug>(MatchitVisualMultiBackward)` |  |
+| `]i` | `` | jump to bottom edge of scope |
+| `]%` | `<Plug>(MatchitVisualMultiForward)` |  |
+| `ai` | `` | full scope |
+| `a%` | `<Plug>(MatchitVisualTextObject)` |  |
+| `g%` | `<Plug>(MatchitVisualBackward)` |  |
+| `gra` | `` | vim.lsp.buf.code_action() |
+| `gc` | `` | Toggle comment |
+| `gx` | `` | Opens filepath or URI under cursor with the system handler (file explorer, web browser, …) |
+| `ii` | `` | inner scope |
+| `j` | `v:count == 0 ? 'gj' : 'j'` | Move cursor down |
+| `k` | `v:count == 0 ? 'gk' : 'k'` | Move cursor up |
+| `mz` | `` |  |
+| `my` | `` |  |
+| `mx` | `` |  |
+| `mw` | `` |  |
+| `mv` | `` |  |
+| `mu` | `` |  |
+| `mt` | `` |  |
+| `ms` | `` |  |
+| `mr` | `` |  |
+| `mq` | `` |  |
+| `mp` | `` |  |
+| `mo` | `` |  |
+| `mn` | `` |  |
+| `mm` | `` |  |
+| `ml` | `` |  |
+| `mk` | `` |  |
+| `mj` | `` |  |
+| `mi` | `` |  |
+| `mh` | `` |  |
+| `mg` | `` |  |
+| `mf` | `` |  |
+| `me` | `` |  |
+| `md` | `` |  |
+| `mc` | `` |  |
+| `mb` | `` |  |
+| `ma` | `` |  |
+| `mZ` | `` |  |
+| `mY` | `` |  |
+| `mX` | `` |  |
+| `mW` | `` |  |
+| `mV` | `` |  |
+| `mU` | `` |  |
+| `mT` | `` |  |
+| `mS` | `` |  |
+| `mR` | `` |  |
+| `mQ` | `` |  |
+| `mP` | `` |  |
+| `mO` | `` |  |
+| `mN` | `` |  |
+| `mM` | `` |  |
+| `mL` | `` |  |
+| `mK` | `` |  |
+| `mJ` | `` |  |
+| `mI` | `` |  |
+| `mH` | `` |  |
+| `mG` | `` |  |
+| `mF` | `` |  |
+| `mE` | `` |  |
+| `mD` | `` |  |
+| `mC` | `` |  |
+| `mB` | `` |  |
+| `mA` | `` |  |
+| `<M-i>` | `` |  |
+| `<Plug>(MatchitVisualTextObject)` | `<Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)` |  |
+| `<Plug>(MatchitVisualMultiForward)` | `:<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``` |  |
+| `<Plug>(MatchitVisualMultiBackward)` | `:<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``` |  |
+| `<Plug>(MatchitVisualBackward)` | `:<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``` |  |
+| `<Plug>(MatchitVisualForward)` | `:<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") \| exe ":normal! m'" \| endif<CR>gv``` |  |
+| `<LeftMouse>` | `` |  |
+| `<S-Tab>` | `<lt>gv` | Unindent line |
+
+## Visual Mode
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| `<Tab>` | `>gv` | Indent line |
+| ` cca` | `<Cmd>CopilotChatAgent<CR>` | General AI Agent |
+| ` ccD` | `<Cmd>CopilotChatFixDiagnostic<CR>` | Fix diagnostic |
+| ` cct` | `<Cmd>CopilotChatTests<CR>` | Generate tests |
+| ` ccd` | `<Cmd>CopilotChatDocs<CR>` | Generate docs |
+| ` cco` | `<Cmd>CopilotChatOptimize<CR>` | Optimize code |
+| ` ccf` | `<Cmd>CopilotChatFix<CR>` | Fix code |
+| ` ccr` | `<Cmd>CopilotChatReview<CR>` | Review code |
+| ` cce` | `<Cmd>CopilotChatExplain<CR>` | Explain code |
+| ` ccV` | `:CopilotChatInPlace<CR>` | Chat in place |
+| ` ccv` | `:CopilotChatVisual<CR>` | Chat with visual selection |
+| ` ccR` | `<Cmd>CopilotChatRefactorAgent<CR>` | Refactor Agent |
+| ` ccb` | `<Cmd>CopilotChatDebugAgent<CR>` | Debug Agent |
+| ` ccA` | `<Cmd>CopilotChatCodeAgent<CR>` | Code Review Agent |
+| ` dE` | `` | Evaluate Input |
+| ` go` | `` | Git browse (open) |
+| ` /` | `gc` | Toggle comment |
+| `#` | `` | :help v_#-default |
+| `%` | `<Plug>(MatchitVisualForward)` |  |
+| `*` | `` | :help v_star-default |
+| `@` | `mode() ==# 'V' ? ':normal! @'.getcharstr().'<CR>' : '@'` | :help v_@-default |
+| `Q` | `mode() ==# 'V' ? ':normal! @<C-R>=reg_recorded()<CR><CR>' : 'Q'` | :help v_Q-default |
+| `[i` | `` | jump to top edge of scope |
+| `[%` | `<Plug>(MatchitVisualMultiBackward)` |  |
+| `]i` | `` | jump to bottom edge of scope |
+| `]%` | `<Plug>(MatchitVisualMultiForward)` |  |
+| `ai` | `` | full scope |
+| `a%` | `<Plug>(MatchitVisualTextObject)` |  |
+| `g%` | `<Plug>(MatchitVisualBackward)` |  |
+| `gra` | `` | vim.lsp.buf.code_action() |
+| `gc` | `` | Toggle comment |
+| `gx` | `` | Opens filepath or URI under cursor with the system handler (file explorer, web browser, …) |
+| `ii` | `` | inner scope |
+| `j` | `v:count == 0 ? 'gj' : 'j'` | Move cursor down |
+| `k` | `v:count == 0 ? 'gk' : 'k'` | Move cursor up |
+| `mz` | `` |  |
+| `my` | `` |  |
+| `mx` | `` |  |
+| `mw` | `` |  |
+| `mv` | `` |  |
+| `mu` | `` |  |
+| `mt` | `` |  |
+| `ms` | `` |  |
+| `mr` | `` |  |
+| `mq` | `` |  |
+| `mp` | `` |  |
+| `mo` | `` |  |
+| `mn` | `` |  |
+| `mm` | `` |  |
+| `ml` | `` |  |
+| `mk` | `` |  |
+| `mj` | `` |  |
+| `mi` | `` |  |
+| `mh` | `` |  |
+| `mg` | `` |  |
+| `mf` | `` |  |
+| `me` | `` |  |
+| `md` | `` |  |
+| `mc` | `` |  |
+| `mb` | `` |  |
+| `ma` | `` |  |
+| `mZ` | `` |  |
+| `mY` | `` |  |
+| `mX` | `` |  |
+| `mW` | `` |  |
+| `mV` | `` |  |
+| `mU` | `` |  |
+| `mT` | `` |  |
+| `mS` | `` |  |
+| `mR` | `` |  |
+| `mQ` | `` |  |
+| `mP` | `` |  |
+| `mO` | `` |  |
+| `mN` | `` |  |
+| `mM` | `` |  |
+| `mL` | `` |  |
+| `mK` | `` |  |
+| `mJ` | `` |  |
+| `mI` | `` |  |
+| `mH` | `` |  |
+| `mG` | `` |  |
+| `mF` | `` |  |
+| `mE` | `` |  |
+| `mD` | `` |  |
+| `mC` | `` |  |
+| `mB` | `` |  |
+| `mA` | `` |  |
+| `<M-i>` | `` |  |
+| `<Plug>(MatchitVisualTextObject)` | `<Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)` |  |
+| `<Plug>(MatchitVisualMultiForward)` | `:<C-U>call matchit#MultiMatch("W",  "n")<CR>m'gv``` |  |
+| `<Plug>(MatchitVisualMultiBackward)` | `:<C-U>call matchit#MultiMatch("bW", "n")<CR>m'gv``` |  |
+| `<Plug>(MatchitVisualBackward)` | `:<C-U>call matchit#Match_wrapper('',0,'v')<CR>m'gv``` |  |
+| `<Plug>(MatchitVisualForward)` | `:<C-U>call matchit#Match_wrapper('',1,'v')<CR>:if col("''") != col("$") \| exe ":normal! m'" \| endif<CR>gv``` |  |
+| `<LeftMouse>` | `` |  |
+| `<S-Tab>` | `<lt>gv` | Unindent line |
+| `<C-S>` | `` | vim.lsp.buf.signature_help() |
+
+## Normal Mode
+
+| Key | Command | Description |
+|-----|---------|-------------|
+| ` ccA` | `<Cmd>CopilotChatCodeAgent<CR>` | Code Review Agent |
+| ` cca` | `<Cmd>CopilotChatAgent<CR>` | General AI Agent |
+| ` ccM` | `<Cmd>CopilotChatCommitStaged<CR>` | Generate commit message for staged |
+| ` ccm` | `<Cmd>CopilotChatCommit<CR>` | Generate commit message |
+| ` ccD` | `<Cmd>CopilotChatFixDiagnostic<CR>` | Fix diagnostic |
+| ` cct` | `<Cmd>CopilotChatTests<CR>` | Generate tests |
+| ` ccd` | `<Cmd>CopilotChatDocs<CR>` | Generate docs |
+| ` cco` | `<Cmd>CopilotChatOptimize<CR>` | Optimize code |
+| ` ccf` | `<Cmd>CopilotChatFix<CR>` | Fix code |
+| ` ccr` | `<Cmd>CopilotChatReview<CR>` | Review code |
+| ` cce` | `<Cmd>CopilotChatExplain<CR>` | Explain code |
+| ` ccl` | `<Cmd>CopilotChatLoad<CR>` | Load Copilot Chat |
+| ` ccs` | `<Cmd>CopilotChatSave<CR>` | Save Copilot Chat |
+| ` ccx` | `<Cmd>CopilotChatReset<CR>` | Reset Copilot Chat |
+| ` ccq` | `<Cmd>CopilotChatToggle<CR>` | Toggle Copilot Chat |
+| ` ccQ` | `` | Quick chat |
+| ` ccR` | `<Cmd>CopilotChatRefactorAgent<CR>` | Refactor Agent |
+| ` ccb` | `<Cmd>CopilotChatDebugAgent<CR>` | Debug Agent |
+| ` bw` | `<Cmd>BufferOrderByWindowNumber<CR>` |  |
+| ` ?` | `` | Buffer Keymaps (which-key) |
+| ` Ss` | `` | Save Session |
+| ` q` | `` | Save Session and Quit Current |
+| ` Q` | `` | Save Session and Quit All |
+| ` S.` | `` | Restore Session from File |
+| ` Sf` | `` | Find Sessions |
+| ` Sd` | `` | Delete Session |
+| ` Sr` | `` | Restore Session |
+| ` fk` | `` | Find keymaps |
+| ` fm` | `` | Find man |
+| ` un` | `` | Change line numbering |
+| ` fn` | `` | Find notifications |
+| ` uN` | `` | Toggle Notifications |
+| ` gg` | `` | ToggleTerm lazygit |
+| ` up` | `` | Toggle paste mode |
+| ` uz` | `` | Toggle color highlight |
+| ` us` | `` | Toggle spellcheck |
+| ` uS` | `` | Toggle conceal |
+| ` ut` | `` | Toggle tabline |
+| ` uu` | `` | Toggle URL highlight |
+| ` ur` | `` | Toggle reference highlighting (buffer) |
+| ` uv` | `` | Toggle virtual text |
+| ` fW` | `` | Find words in all files |
+| ` ff` | `` | Find files |
+| ` uy` | `` | Toggle syntax highlight (buffer) |
+| ` fo` | `` | Find old files |
+| ` db` | `` | Toggle Breakpoint (F9) |
+| ` fw` | `` | Find words |
+| ` dB` | `` | Clear Breakpoints |
+| ` f'` | `` | Find marks |
+| ` dc` | `` | Start/Continue (F5) |
+| ` th` | `<Cmd>ToggleTerm size=10 direction=horizontal<CR>` | ToggleTerm horizontal split |
+| ` dC` | `` | Conditional Breakpoint (S-F9) |
+| ` tn` | `` | ToggleTerm node |
+| ` di` | `` | Step Into (F11) |
+| ` tl` | `` | ToggleTerm lazygit |
+| ` do` | `` | Step Over (F10) |
+| ` fC` | `` | Find commands |
+| ` Sl` | `` | Load last session |
+| ` uZ` | `` | Toggle zen mode |
+| ` fu` | `` | Find undo history |
+| ` ft` | `` | Find themes |
+| ` fr` | `` | Find registers |
+| ` dE` | `` | Evaluate Input |
+| ` SD` | `` | Delete a dirsession |
+| ` du` | `` | Toggle Debugger UI |
+| ` dQ` | `` | Terminate Session (S-F5) |
+| ` dh` | `` | Debugger Hover |
+| ` dp` | `` | Pause (F6) |
+| ` pS` | `` | Plugins Sync |
+| ` dr` | `` | Restart (C-F5) |
+| ` pu` | `` | Plugins Check Updates |
+| ` dR` | `` | Toggle REPL |
+| ` b\` | `` | Horizontal split buffer from tabline |
+| ` ds` | `` | Run To Cursor |
+| ` b\|` | `` | Vertical split buffer from tabline |
+| ` tf` | `<Cmd>ToggleTerm direction=float<CR>` | ToggleTerm float |
+| ` bc` | `` | Close all buffers except current |
+| ` bC` | `` | Close all buffers |
+| ` uw` | `` | Toggle wrap |
+| ` br` | `` | Close all buffers to the right |
+| ` /` | `gcc` | Toggle comment line |
+| ` dO` | `` | Step Out (S-F11) |
+| ` R` | `` | Rename file |
+| ` fO` | `` | Find old files (cwd) |
+| ` xq` | `<Cmd>copen<CR>` | Quickfix List |
+| ` fp` | `` | Find projects |
+| ` fs` | `` | Find buffers/recent/files |
+| ` St` | `` | Save this tab's session |
+| ` fT` | `<Cmd>TodoTelescope<CR>` | Find TODOs |
+| ` h` | `` | Home Screen |
+| ` u\|` | `` | Toggle indent guides |
+| ` uD` | `` | Dismiss notifications |
+| ` go` | `` | Git browse (open) |
+| ` lD` | `` | Search diagnostics |
+| ` pU` | `` | Plugins Update |
+| ` ls` | `` | Search symbols |
+| ` lS` | `` | Symbols outline |
+| ` c` | `` | Close buffer |
+| ` uR` | `` | Toggle reference highlighting (global) |
+| ` pM` | `<Cmd>MasonToolsUpdate<CR>` | Mason Update |
+| ` C` | `` | Force close buffer |
+| ` fl` | `` | Find lines |
+| ` uA` | `` | Toggle rooter autochdir |
+| ` ud` | `` | Toggle diagnostics |
+| ` ld` | `` | Hover diagnostics |
+| ` bp` | `` | Previous buffer |
+| ` ua` | `` | Toggle autopairs |
+| ` ps` | `` | Plugins Status |
+| ` o` | `` | Toggle Explorer Focus |
+| ` dq` | `` | Close Session |
+| ` uV` | `` | Toggle virtual lines |
+| ` bd` | `<Cmd>BufferOrderByDirectory<CR>` |  |
+| ` uC` | `` | Toggle autocompletion (global) |
+| ` pa` | `` | Update Lazy and Mason |
+| ` w` | `<Cmd>w<CR>` | Save |
+| ` pi` | `` | Plugins Install |
+| ` SS` | `` | Save this dirsession |
+| ` ul` | `` | Toggle statusline |
+| ` bl` | `<Cmd>BufferOrderByLanguage<CR>` |  |
+| ` bb` | `<Cmd>BufferOrderByBufferNumber<CR>` |  |
+| ` ui` | `` | Change indent setting |
+| ` n` | `<Cmd>enew<CR>` | New File |
+| ` u>` | `` | Toggle foldcolumn |
+| ` fg` | `` | Find git files |
+| ` fF` | `` | Find all files |
+| ` fb` | `` | Find buffers |
+| ` gC` | `` | Git commits (current file) |
+| ` bsp` | `` | By full path |
+| ` tp` | `` | ToggleTerm python |
+| ` bse` | `` | By extension |
+| ` bsr` | `` | By relative path |
+| ` e` | `<Cmd>Neotree toggle<CR>` | Toggle Explorer |
+| ` bsi` | `` | By buffer number |
+| ` bsm` | `` | By modification |
+| ` ug` | `` | Toggle signcolumn |
+| ` ub` | `` | Toggle background |
+| ` SF` | `` | Load a dirsession |
+| ` xl` | `<Cmd>lopen<CR>` | Location List |
+| ` pm` | `` | Mason Installer |
+| ` gt` | `` | Git status |
+| ` gT` | `` | Git stash |
+| ` f<CR>` | `` | Resume previous search |
+| ` fa` | `` | Find AstroNvim config files |
+| ` fc` | `` | Find word under cursor |
+| ` tv` | `<Cmd>ToggleTerm size=80 direction=vertical<CR>` | ToggleTerm vertical split |
+| ` uc` | `` | Toggle autocompletion (buffer) |
+| ` fh` | `` | Find help |
+| ` gv` | `` | Open diffview |
+| ` gh` | `` | File history |
+| ` gb` | `` | Git branches |
+| ` gsl` | `<Cmd>Git stash list<CR>` | Git stash list |
+| ` gsp` | `<Cmd>Git stash pop<CR>` | Git stash pop |
+| ` gss` | `<Cmd>Git stash<CR>` | Git stash |
+| ` gm` | `<Cmd>Git merge ` | Git merge |
+| ` gcb` | `<Cmd>Git checkout -b ` | Git checkout new branch |
+| ` gco` | `<Cmd>Git checkout ` | Git checkout |
+| ` gD` | `<Cmd>Gdiffsplit HEAD<CR>` | Git diff HEAD |
+| ` gd` | `` | Git diff split |
+| ` gL` | `<Cmd>Git log<CR>` | Git log detailed |
+| ` gl` | `<Cmd>Git log --oneline<CR>` | Git log |
+| ` gB` | `<Cmd>Git blame<CR>` | Git blame |
+| ` gP` | `<Cmd>Git pull<CR>` | Git pull |
+| ` gp` | `` | Git push |
+| ` gc` | `` | Git commits (repository) |
+| ` gA` | `<Cmd>Git add .<CR>` | Git add all |
+| ` ga` | `` | Git add current file |
+| ` gs` | `` | Git status |
+| `%` | `<Plug>(MatchitNormalForward)` |  |
+| `&` | `:&&<CR>` | :help &-default |
+| `<lt>b` | `` | Move buffer tab left |
+| `>b` | `` | Move buffer tab right |
+| `Y` | `y$` | :help Y-default |
+| `ZZ` | `` | Save Session, Write All and Quit |
+| `[i` | `` | jump to top edge of scope |
+| `[%` | `<Plug>(MatchitNormalMultiBackward)` |  |
+| `[e` | `` | Previous error |
+| `[w` | `` | Previous warning |
+| `[r` | `` | Previous reference |
+| `[ ` | `` | Add empty line above cursor |
+| `[B` | `` | :brewind |
+| `[b` | `` | Previous buffer |
+| `[<C-T>` | `` |  :ptprevious |
+| `[T` | `` | Previous TODO comment |
+| `[t` | `` | Previous tab |
+| `[A` | `` | :rewind |
+| `[a` | `` | :previous |
+| `[<C-L>` | `` | :lpfile |
+| `[L` | `` | :lrewind |
+| `[l` | `` | :lprevious |
+| `[<C-Q>` | `` | :cpfile |
+| `[Q` | `` | :crewind |
+| `[q` | `` | :cprevious |
+| `[D` | `` | Jump to the first diagnostic in the current buffer |
+| `[d` | `` | Jump to the previous diagnostic in the current buffer |
+| `\` | `<Cmd>split<CR>` | Horizontal Split |
+| `]i` | `` | jump to bottom edge of scope |
+| `]%` | `<Plug>(MatchitNormalMultiForward)` |  |
+| `]e` | `` | Next error |
+| `]w` | `` | Next warning |
+| `]r` | `` | Next reference |
+| `] ` | `` | Add empty line below cursor |
+| `]B` | `` | :blast |
+| `]b` | `` | Next buffer |
+| `]<C-T>` | `` | :ptnext |
+| `]T` | `` | Next TODO comment |
+| `]t` | `` | Next tab |
+| `]A` | `` | :last |
+| `]a` | `` | :next |
+| `]<C-L>` | `` | :lnfile |
+| `]L` | `` | :llast |
+| `]l` | `` | :lnext |
+| `]<C-Q>` | `` | :cnfile |
+| `]Q` | `` | :clast |
+| `]q` | `` | :cnext |
+| `]D` | `` | Jump to the last diagnostic in the current buffer |
+| `]d` | `` | Jump to the next diagnostic in the current buffer |
+| `g%` | `<Plug>(MatchitNormalBackward)` |  |
+| `gl` | `` | Hover diagnostics |
+| `gco` | `o<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>` | Add Comment Below |
+| `gcO` | `O<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>` | Add Comment Above |
+| `gO` | `` | vim.lsp.buf.document_symbol() |
+| `grt` | `` | vim.lsp.buf.type_definition() |
+| `gri` | `` | vim.lsp.buf.implementation() |
+| `grr` | `` | vim.lsp.buf.references() |
+| `gra` | `` | vim.lsp.buf.code_action() |
+| `grn` | `` | vim.lsp.buf.rename() |
+| `gcc` | `` | Toggle comment line |
+| `gc` | `` | Toggle comment |
+| `gx` | `` | Opens filepath or URI under cursor with the system handler (file explorer, web browser, …) |
+| `j` | `v:count == 0 ? 'gj' : 'j'` | Move cursor down |
+| `k` | `v:count == 0 ? 'gk' : 'k'` | Move cursor up |
+| `mz` | `` |  |
+| `my` | `` |  |
+| `mx` | `` |  |
+| `mw` | `` |  |
+| `mv` | `` |  |
+| `mu` | `` |  |
+| `mt` | `` |  |
+| `ms` | `` |  |
+| `mr` | `` |  |
+| `mq` | `` |  |
+| `mp` | `` |  |
+| `mo` | `` |  |
+| `mn` | `` |  |
+| `mm` | `` |  |
+| `ml` | `` |  |
+| `mk` | `` |  |
+| `mj` | `` |  |
+| `mi` | `` |  |
+| `mh` | `` |  |
+| `mg` | `` |  |
+| `mf` | `` |  |
+| `me` | `` |  |
+| `md` | `` |  |
+| `mc` | `` |  |
+| `mb` | `` |  |
+| `ma` | `` |  |
+| `mZ` | `` |  |
+| `mY` | `` |  |
+| `mX` | `` |  |
+| `mW` | `` |  |
+| `mV` | `` |  |
+| `mU` | `` |  |
+| `mT` | `` |  |
+| `mS` | `` |  |
+| `mR` | `` |  |
+| `mQ` | `` |  |
+| `mP` | `` |  |
+| `mO` | `` |  |
+| `mN` | `` |  |
+| `mM` | `` |  |
+| `mL` | `` |  |
+| `mK` | `` |  |
+| `mJ` | `` |  |
+| `mI` | `` |  |
+| `mH` | `` |  |
+| `mG` | `` |  |
+| `mF` | `` |  |
+| `mE` | `` |  |
+| `mD` | `` |  |
+| `mC` | `` |  |
+| `mB` | `` |  |
+| `mA` | `` |  |
+| `\|` | `<Cmd>vsplit<CR>` | Vertical Split |
+| `<M-n>` | `` | Move to next reference |
+| `<C-P>` | `<Cmd>BufferPick<CR>` |  |
+| `<M-x>` | `<Cmd>BufferClose<CR>` |  |
+| `<M-c>` | `<Cmd>BufferClose<CR>` |  |
+| `<M-p>` | `<Cmd>BufferPin<CR>` |  |
+| `<M-0>` | `<Cmd>BufferLast<CR>` |  |
+| `<M-9>` | `<Cmd>BufferGoto 9<CR>` |  |
+| `<M-8>` | `<Cmd>BufferGoto 8<CR>` |  |
+| `<M-7>` | `<Cmd>BufferGoto 7<CR>` |  |
+| `<M-6>` | `<Cmd>BufferGoto 6<CR>` |  |
+| `<M-5>` | `<Cmd>BufferGoto 5<CR>` |  |
+| `<M-4>` | `<Cmd>BufferGoto 4<CR>` |  |
+| `<M-3>` | `<Cmd>BufferGoto 3<CR>` |  |
+| `<M-2>` | `<Cmd>BufferGoto 2<CR>` |  |
+| `<M-1>` | `<Cmd>BufferGoto 1<CR>` |  |
+| `<M->>` | `<Cmd>BufferMoveNext<CR>` |  |
+| `<M-lt>` | `<Cmd>BufferMovePrevious<CR>` |  |
+| `<M-.>` | `<Cmd>BufferNext<CR>` |  |
+| `<M-,>` | `<Cmd>BufferPrevious<CR>` |  |
+| `<Plug>(MatchitNormalMultiForward)` | `:<C-U>call matchit#MultiMatch("W",  "n")<CR>` |  |
+| `<Plug>(MatchitNormalMultiBackward)` | `:<C-U>call matchit#MultiMatch("bW", "n")<CR>` |  |
+| `<Plug>(MatchitNormalBackward)` | `:<C-U>call matchit#Match_wrapper('',0,'n')<CR>` |  |
+| `<Plug>(MatchitNormalForward)` | `:<C-U>call matchit#Match_wrapper('',1,'n')<CR>` |  |
+| `<MouseMove>` | `` | hover.nvim (mouse) |
+| `<C-W> ` | `` | Window Hydra Mode (which-key) |
+| `<Plug>PlenaryTestFile` | `:lua require('plenary.test_harness').test_file(vim.fn.expand("%:p"))<CR>` |  |
+| `<LeftMouse>` | `` |  |
+| `<C-H>` | `` | Move to left split |
+| `<C-Down>` | `` | Resize split down |
+| `<C-Left>` | `` | Resize split left |
+| `<C-Up>` | `` | Resize split up |
+| `<C-Right>` | `` | Resize split right |
+| `<C-K>` | `` | Move to above split |
+| `<C-J>` | `` | Move to below split |
+| `<F17>` | `` | Debugger: Stop |
+| `<F21>` | `` | Debugger: Conditional Breakpoint |
+| `<F5>` | `` | Debugger: Start |
+| `<F29>` | `` | Debugger: Restart |
+| `<F6>` | `` | Debugger: Pause |
+| `<F9>` | `` | Debugger: Toggle Breakpoint |
+| `<F10>` | `` | Debugger: Step Over |
+| `<F11>` | `` | Debugger: Step Into |
+| `<F23>` | `` | Debugger: Step Out |
+| `<C-S>` | `<Cmd>silent! update! \| redraw<CR>` | Force write |
+| `<C-Q>` | `<Cmd>q!<CR>` | Force quit |
+| `<F7>` | `<Cmd>execute v:count . "ToggleTerm"<CR>` | Toggle terminal |
+| `<C-'>` | `<Cmd>execute v:count . "ToggleTerm"<CR>` | Toggle terminal |
+| `<C-W><C-D>` | `<C-W>d` | Show diagnostics under the cursor |
+| `<C-W>d` | `` | Show diagnostics under the cursor |
+| `<C-L>` | `` | Move to right split |
+

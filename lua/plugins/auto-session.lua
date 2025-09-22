@@ -13,8 +13,10 @@ return {
     auto_restore_enabled = true,
     -- Auto create session when opening nvim in a directory
     auto_session_create_enabled = true,
-    -- Enable session lens (telescope integration)
-    auto_session_enable_last_session = true,
+    -- Disable automatically restoring the last session
+    auto_session_enable_last_session = false,
+    -- Set the session strategy to the current working directory
+    strategy = "cwd",
     -- Directory where sessions are saved
     auto_session_root_dir = vim.fn.stdpath "data" .. "/sessions/",
     -- Session name patterns to suppress (won't create sessions for these)
