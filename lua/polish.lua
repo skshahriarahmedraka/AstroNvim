@@ -1,5 +1,7 @@
 -- ~/.config/nvim/lua/polish.lua
 
+vim.o.winborder = "rounded"
+
 -- Remove or comment out the line that prevents activation
 -- if true then return end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
@@ -85,6 +87,32 @@ pcall(function()
       local buf_name = vim.api.nvim_buf_get_name(self.bufnr)
       if buf_name == "" then return "[No Name]" end
       return vim.fn.fnamemodify(buf_name, ":t")
+    end
+  end
+end)
+
+-- Patch for hover.nvim error: 'replacement string' item contains newlines
+pcall(function()
+  local util = require("hover.util")
+  if util and util.open_floating_preview then
+    local original_open_floating_preview = util.open_floating_preview
+    util.open_floating_preview = function(content, opts)
+      if type(content) == "string" then
+        content = vim.split(content, '\n')
+      elseif type(content) == "table" then
+        local new_content = {}
+        for _, line in ipairs(content) do
+          if type(line) == "string" then
+            for _, sub_line in ipairs(vim.split(line, '\n')) do
+              table.insert(new_content, sub_line)
+            end
+          else
+            table.insert(new_content, line)
+          end
+        end
+        content = new_content
+      end
+      return original_open_floating_preview(content, opts)
     end
   end
 end)

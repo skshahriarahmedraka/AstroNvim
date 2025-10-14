@@ -38,4 +38,5 @@ return {
   -- { import = "astrocommunity.pack.sql" },
   { import = "astrocommunity.pack.templ" },
   { import = "astrocommunity.recipes.vscode-icons" },
+  { import = "astrocommunity.pack.full-dadbod"},
 }
