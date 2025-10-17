@@ -21,12 +21,21 @@ map("n", "<leader>gD", "<cmd>Gdiffsplit HEAD<cr>", { desc = "Git diff HEAD" })
 -- Branch operations
 map("n", "<leader>gco", "<cmd>Git checkout ", { desc = "Git checkout" })
 map("n", "<leader>gcb", "<cmd>Git checkout -b ", { desc = "Git checkout new branch" })
-map("n", "<leader>gm", "<cmd>Git merge ", { desc = "Git merge" })
+map("n", " <leader>gm", "<cmd>Git merge ", { desc = "Git merge" })
 
 -- Stash operations
 map("n", "<leader>gss", "<cmd>Git stash<cr>", { desc = "Git stash" })
 map("n", "<leader>gsp", "<cmd>Git stash pop<cr>", { desc = "Git stash pop" })
 map("n", "<leader>gsl", "<cmd>Git stash list<cr>", { desc = "Git stash list" })
 
+-- Move lines up and down
+map("n", "<A-Up>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+map("n", "<A-Down>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
+map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move selection up" })
+map("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move selection down" })
+
+-- Scroll horizontally
+map("n", "<A-Right>", "zl", { desc = "Scroll right" })
+map("n", "<A-Left>", "zh", { desc = "Scroll left" })
 
 return {}
