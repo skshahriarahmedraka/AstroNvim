@@ -460,7 +460,8 @@ return {
       end
 
       -- Enable document highlighting if supported
-      if client.supports_method "textDocument/documentHighlight" then
+      -- Note: ZLS does not support textDocument/documentHighlight, so we exclude it
+      if client.supports_method "textDocument/documentHighlight" and client.name ~= "zls" then
         local highlight_augroup = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
         vim.api.nvim_clear_autocmds { buffer = bufnr, group = highlight_augroup }
         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {

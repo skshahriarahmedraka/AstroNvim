@@ -1,25 +1,14 @@
 -- File: ~/.config/nvim/lua/plugins/neo-tree.lua
--- AstroVim Neo-tree natural sorting configuration
+-- Configure Neo-tree to open on the right side of the editor
 
+---@type LazySpec
 return {
-  -- "nvim-neo-tree/neo-tree.nvim",
-  -- opts = function(_, opts)
-  --   -- Ensure filesystem table exists
-  --   if not opts.filesystem then
-  --     opts.filesystem = {}
-  --   end
-  --   -- Add natural sorting
-  --   opts.filesystem.sort_function = function(a, b)
-  --     -- Convert numbers in filenames to zero-padded strings for proper sorting
-  --     local function natural_sort_key(str)
-  --       return str:gsub("(%d+)", function(num)
-  --         return string.format("%010d", tonumber(num))
-  --       end)
-  --     end
-  --     local a_key = natural_sort_key(a.name:lower())
-  --     local b_key = natural_sort_key(b.name:lower())
-  --     return a_key < b_key
-  --   end
-  --   return opts
-  -- end,
+  "nvim-neo-tree/neo-tree.nvim",
+  opts = function(_, opts)
+    opts = opts or {}
+    opts.window = opts.window or {}
+    -- Move the file tree to the right
+    opts.window.position = "right"
+    return opts
+  end,
 }
