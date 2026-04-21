@@ -40,6 +40,10 @@ return {
     experimental = {
       check_rtp_message = false,
     },
+    -- Avoid optional LaTeX rendering in markdown previews.
+    latex = {
+      enable = false,
+    },
   },
 
   -- For blink.cmp's completion

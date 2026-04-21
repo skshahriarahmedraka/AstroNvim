@@ -5,7 +5,6 @@
 ---@type LazySpec
 return {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = { "OXY2DEV/markview.nvim" },
   opts = {
     ensure_installed = {
       "lua",
@@ -25,8 +24,19 @@ return {
       "json",
       "yaml",
       "zig",
+      "markdown",
+      "markdown_inline",
       -- "rust",
       -- "ron",
+    },
+    highlight = {
+      enable = true,
+      disable = function(lang, buf)
+        -- Disable highlight for markdown files to prevent treesitter errors
+        if vim.bo[buf].filetype == "markdown" then
+          return true
+        end
+      end,
     },
   },
 }

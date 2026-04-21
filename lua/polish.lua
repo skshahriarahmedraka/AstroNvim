@@ -8,6 +8,8 @@ vim.o.winborder = "rounded"
 -- This will run last in the setup process.
 -- This is just pure lua so anything that doesn't
 
+pcall(function() require("user.treesitter_compat").apply() end)
+
 -- Set global update time to a lower value for faster CursorHold events
 -- This affects how quickly diagnostics appear after stopping typing
 vim.opt.updatetime = 250 -- Try 250 or 100. 100 is very responsive, might be too frequent.
