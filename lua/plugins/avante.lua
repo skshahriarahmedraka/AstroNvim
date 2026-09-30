@@ -18,6 +18,11 @@ return {
   -- and requires a bleeding-edge rustc.
   build = vim.fn.has "win32" == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
     or "bash ./build.sh",
+  -- Required since late Sept 2026 (commands parser); not yet listed by the community module.
+  -- Declared as plugins so lazy.nvim doesn't fall back to luarocks for the rockspec dependency.
+  dependencies = {
+    { "ColinKennedy/mega.cmdparse", dependencies = { "ColinKennedy/mega.logging" } },
+  },
   ---@module 'avante'
   ---@type avante.Config
   opts = {

@@ -4,7 +4,7 @@
 
 A template for getting started with [AstroNvim](https://github.com/AstroNvim/AstroNvim)
 
-See [AI_GUIDE.md](AI_GUIDE.md) for the Avante and Claude Code setup and keymaps.
+See [AI_GUIDE.md](AI_GUIDE.md) for the Avante and Claude Code setup and keymaps, and [IMPROVEMENTS.md](IMPROVEMENTS.md) for the planned config improvements.
 
 ## 🛠️ Installation
 

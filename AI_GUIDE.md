@@ -183,6 +183,7 @@ Keep them short and factual, and commit them so your team shares them.
 |---|---|
 | Avante error loading `avante_templates` / tokenizers | Rebuild the prebuilt libs: `:Lazy build avante.nvim` (runs `bash ./build.sh`) |
 | Build tries to compile Rust and fails on the rustc version | Make sure `build` in `lua/plugins/avante.lua` is `bash ./build.sh`, not `make` |
+| `module 'mega.cmdparse' not found` when opening a file | Avante needs `ColinKennedy/mega.cmdparse` and `mega.logging` as plugins (declared in `lua/plugins/avante.lua`); run `:Lazy install` |
 | Avante `claude-code` provider hangs on first use | `npx` is downloading the adapter; wait, or install it globally (see Prerequisites) |
 | Avante says unauthenticated | Run `claude` once in a terminal and `/login`, or export `ANTHROPIC_API_KEY` |
 | Claude doesn't see your selection | `<Leader>aS` to check the connection; run `/ide` inside Claude |
