@@ -39,4 +39,7 @@ return {
   { import = "astrocommunity.pack.templ" },
   { import = "astrocommunity.recipes.vscode-icons" },
   { import = "astrocommunity.pack.full-dadbod"},
+
+  -- AI: Avante sidebar (<Leader>A), overridden in lua/plugins/avante.lua
+  { import = "astrocommunity.ai.avante-nvim" },
 }
